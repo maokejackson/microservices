@@ -20,7 +20,6 @@ public class EmbeddedKeycloakConfig
             KeycloakServerProperties keycloakServerProperties, DataSource dataSource) throws Exception
     {
         mockJndiEnvironment(dataSource);
-        EmbeddedKeycloakApplication.keycloakServerProperties = keycloakServerProperties;
 
         ServletRegistrationBean<HttpServlet30Dispatcher> servlet = new ServletRegistrationBean<>(
                 new HttpServlet30Dispatcher());

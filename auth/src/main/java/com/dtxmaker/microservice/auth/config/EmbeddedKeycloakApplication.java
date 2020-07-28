@@ -11,16 +11,21 @@ import org.keycloak.services.util.JsonConfigProviderFactory;
 import org.keycloak.util.JsonSerialization;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import java.util.NoSuchElementException;
+import javax.servlet.ServletContext;
+import javax.ws.rs.core.Context;
 
 @Slf4j
 public class EmbeddedKeycloakApplication extends KeycloakApplication
 {
-    static KeycloakServerProperties keycloakServerProperties;
+    private final KeycloakServerProperties keycloakServerProperties;
 
-    public EmbeddedKeycloakApplication()
+    public EmbeddedKeycloakApplication(@Context ServletContext context)
     {
+        this.keycloakServerProperties = WebApplicationContextUtils.getRequiredWebApplicationContext(context)
+                .getBean(KeycloakServerProperties.class);
         createMasterRealmAdminUser();
         createBaeldungRealm();
     }
