@@ -6,6 +6,9 @@
       </value>
     </option>
     <option name="FORMATTER_TAGS_ENABLED" value="true" />
+    <HTMLCodeStyleSettings>
+      <option name="HTML_SPACE_INSIDE_EMPTY_TAG" value="true" />
+    </HTMLCodeStyleSettings>
     <JavaCodeStyleSettings>
       <option name="IMPORT_LAYOUT_TABLE">
         <value>
