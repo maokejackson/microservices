@@ -9,7 +9,6 @@
         <option value="reformat" />
         <option value="missingOverrideAnnotation" />
         <option value="explicitTypeCanBeDiamond" />
-        <option value="suppressAnnotation" />
         <option value="unnecessarySemicolon" />
       </set>
     </option>
