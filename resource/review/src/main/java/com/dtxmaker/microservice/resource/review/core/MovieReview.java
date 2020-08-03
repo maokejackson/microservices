@@ -1,4 +1,4 @@
-package com.dtxmaker.microservice.resource.review;
+package com.dtxmaker.microservice.resource.review.core;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

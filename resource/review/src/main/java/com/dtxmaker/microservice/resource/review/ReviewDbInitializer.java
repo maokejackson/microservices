@@ -1,5 +1,7 @@
 package com.dtxmaker.microservice.resource.review;
 
+import com.dtxmaker.microservice.resource.review.core.MovieReview;
+import com.dtxmaker.microservice.resource.review.core.MovieReviewRepository;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
