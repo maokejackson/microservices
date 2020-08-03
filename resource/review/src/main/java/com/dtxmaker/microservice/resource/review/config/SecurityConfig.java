@@ -1,4 +1,4 @@
-package com.dtxmaker.microservice.resource.review;
+package com.dtxmaker.microservice.resource.review.config;
 
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.context.annotation.Bean;
@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .and()
             .oauth2ResourceServer()
                 .jwt()
+                .jwtAuthenticationConverter(jwtAuthenticationConverter())
         ;
         // @formatter:on
     }
