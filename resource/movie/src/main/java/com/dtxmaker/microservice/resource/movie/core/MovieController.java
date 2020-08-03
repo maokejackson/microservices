@@ -1,14 +1,11 @@
-package com.dtxmaker.microservice.resource.movie;
+package com.dtxmaker.microservice.resource.movie.core;
 
 import com.dtxmaker.microservice.resource.movie.feign.ReviewsFeignClient;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Iterator;
 import java.util.List;
-import java.util.Spliterator;
-import java.util.Spliterators;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import javax.persistence.EntityNotFoundException;
 
 @RestController
@@ -29,8 +26,8 @@ public class MovieController
     @GetMapping
     public List<MovieDTO> getMovies(@RequestHeader(AUTHORIZATION_HEADER) String authHeader)
     {
-        Iterator<Movie> movies = movieRepository.findAll().iterator();
-        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(movies, Spliterator.ORDERED), false)
+        List<Movie> movies = movieRepository.findAll();
+        return movies.stream()
                 .map(movie -> new MovieDTO(movie, reviewsFeignClient.getMovieReviews(authHeader, movie.getId())))
                 .collect(Collectors.toList());
     }

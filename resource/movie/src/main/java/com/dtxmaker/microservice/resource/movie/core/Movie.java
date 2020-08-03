@@ -1,4 +1,4 @@
-package com.dtxmaker.microservice.resource.movie;
+package com.dtxmaker.microservice.resource.movie.core;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

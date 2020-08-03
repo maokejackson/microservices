@@ -1,5 +1,7 @@
 package com.dtxmaker.microservice.resource.movie;
 
+import com.dtxmaker.microservice.resource.movie.core.Movie;
+import com.dtxmaker.microservice.resource.movie.core.MovieRepository;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;

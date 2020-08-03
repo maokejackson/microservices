@@ -1,6 +1,6 @@
 package com.dtxmaker.microservice.resource.movie.feign;
 
-import com.dtxmaker.microservice.resource.movie.MovieReview;
+import com.dtxmaker.microservice.resource.movie.core.MovieReview;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
