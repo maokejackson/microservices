@@ -2,17 +2,17 @@ package com.dtxmaker.microservice.resource.movie;
 
 import lombok.Data;
 
-import java.util.Collection;
+import java.util.List;
 
 @Data
 public class MovieDTO
 {
-    private Long                    id;
-    private String                  title;
-    private String                  poster;
-    private Collection<MovieReview> reviews;
+    private Long              id;
+    private String            title;
+    private String            poster;
+    private List<MovieReview> reviews;
 
-    public MovieDTO(Movie movie, Collection<MovieReview> reviews)
+    public MovieDTO(Movie movie, List<MovieReview> reviews)
     {
         this.id = movie.getId();
         this.title = movie.getTitle();

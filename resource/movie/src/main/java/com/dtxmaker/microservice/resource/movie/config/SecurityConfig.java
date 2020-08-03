@@ -1,4 +1,4 @@
-package com.dtxmaker.microservice.resource.review.config;
+package com.dtxmaker.microservice.resource.movie.config;
 
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.context.annotation.Bean;

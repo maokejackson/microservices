@@ -2,11 +2,10 @@ package com.dtxmaker.microservice.resource.movie;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.hateoas.RepresentationModel;
 
 @Data
 @NoArgsConstructor
-public class MovieReview extends RepresentationModel<MovieReview>
+public class MovieReview
 {
     private Long   id;
     private Long   movieId;
