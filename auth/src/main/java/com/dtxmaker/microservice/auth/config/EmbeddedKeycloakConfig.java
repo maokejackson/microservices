@@ -2,8 +2,6 @@ package com.dtxmaker.microservice.auth.config;
 
 import org.jboss.resteasy.plugins.server.servlet.HttpServlet30Dispatcher;
 import org.jboss.resteasy.plugins.server.servlet.ResteasyContextParameters;
-import org.keycloak.services.filters.KeycloakSessionServletFilter;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,17 +32,17 @@ public class EmbeddedKeycloakConfig
         return servlet;
     }
 
-    @Bean
-    FilterRegistrationBean<KeycloakSessionServletFilter> keycloakSessionManagement(
-            KeycloakServerProperties keycloakServerProperties)
-    {
-        FilterRegistrationBean<KeycloakSessionServletFilter> filter = new FilterRegistrationBean<>();
-        filter.setName("Keycloak Session Management");
-        filter.setFilter(new KeycloakSessionServletFilter());
-        filter.addUrlPatterns(keycloakServerProperties.getContextPath() + "/*");
-
-        return filter;
-    }
+//    @Bean
+//    FilterRegistrationBean<KeycloakSessionServletFilter> keycloakSessionManagement(
+//            KeycloakServerProperties keycloakServerProperties)
+//    {
+//        FilterRegistrationBean<KeycloakSessionServletFilter> filter = new FilterRegistrationBean<>();
+//        filter.setName("Keycloak Session Management");
+//        filter.setFilter(new KeycloakSessionServletFilter());
+//        filter.addUrlPatterns(keycloakServerProperties.getContextPath() + "/*");
+//
+//        return filter;
+//    }
 
     private void mockJndiEnvironment(DataSource dataSource) throws NamingException
     {
