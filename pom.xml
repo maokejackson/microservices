@@ -16,6 +16,7 @@
     </parent>
 
     <modules>
+        <module>common/resource-server</module>
         <module>discovery</module>
         <module>configuration</module>
         <!--        <module>auth</module>-->
@@ -57,6 +58,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.dtxmaker.microservice</groupId>
+                <artifactId>microservice-common-resource-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>

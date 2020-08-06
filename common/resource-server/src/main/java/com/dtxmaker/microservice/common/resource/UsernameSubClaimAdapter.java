@@ -1,4 +1,4 @@
-package com.dtxmaker.microservice.resource.movie.config;
+package com.dtxmaker.microservice.common.resource;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.oauth2.jwt.MappedJwtClaimSetConverter;
@@ -13,7 +13,7 @@ public class UsernameSubClaimAdapter implements Converter<Map<String, Object>, M
     @Override
     public Map<String, Object> convert(Map<String, Object> claims)
     {
-        Map<String, Object> convertedClaims = this.delegate.convert(claims);
+        Map<String, Object> convertedClaims = delegate.convert(claims);
 
         String username = (String) convertedClaims.get("user_name");
         convertedClaims.put("sub", username);
