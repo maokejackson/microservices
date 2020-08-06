@@ -5,6 +5,7 @@ import com.dtxmaker.microservice.common.resource.ResourceServerWebSecurityConfig
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 @ResourceServerConfiguration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -17,5 +18,16 @@ public class SecurityConfig extends ResourceServerWebSecurityConfigurerAdapter
     protected String oauth2ClientId()
     {
         return clientId;
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception
+    {
+        super.configure(http);
+        // @formatter:off
+        http.authorizeRequests()
+                .anyRequest().authenticated()
+        ;
+        // @formatter:on
     }
 }
