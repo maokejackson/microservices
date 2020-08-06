@@ -5,45 +5,15 @@ import static org.springframework.http.HttpMethod.PUT;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.web.client.RestTemplate;
 
 public class RestTemplateHelper
 {
     private final RestTemplate restTemplate;
 
-    public RestTemplateHelper()
+    public RestTemplateHelper(RestTemplate restTemplate)
     {
-        this(null);
-    }
-
-    public RestTemplateHelper(String accessToken)
-    {
-        this.restTemplate = new RestTemplate();
-
-        if (accessToken != null)
-        {
-            this.restTemplate.getInterceptors().add(getBearerTokenInterceptor(accessToken));
-        }
-        else
-        {
-            this.restTemplate.getInterceptors().add(getNoTokenInterceptor());
-        }
-    }
-
-    private ClientHttpRequestInterceptor getBearerTokenInterceptor(String accessToken)
-    {
-        return (request, bytes, execution) -> {
-            request.getHeaders().add("Authorization", "Bearer " + accessToken);
-            return execution.execute(request, bytes);
-        };
-    }
-
-    private ClientHttpRequestInterceptor getNoTokenInterceptor()
-    {
-        return (request, bytes, execution) -> {
-            throw new IllegalStateException("Can't access the API without an access token");
-        };
+        this.restTemplate = restTemplate;
     }
 
     public <T> T get(String url, Class<T> responseType, Object... uriVariables)

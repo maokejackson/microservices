@@ -8,23 +8,11 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
-import org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
-public class WebClientConfig
+public class RestTemplateConfig
 {
-    @Bean
-    public WebClient webClient(OAuth2AuthorizedClientManager authorizedClientManager)
-    {
-        ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2Client =
-                new ServletOAuth2AuthorizedClientExchangeFilterFunction(authorizedClientManager);
-
-        return WebClient.builder()
-                .apply(oauth2Client.oauth2Configuration())
-                .build();
-    }
-
     @Bean
     public OAuth2AuthorizedClientManager authorizedClientManager(
             ClientRegistrationRepository clientRegistrationRepository,
@@ -41,5 +29,25 @@ public class WebClientConfig
         authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
 
         return authorizedClientManager;
+    }
+
+    @Bean
+    public OAuth2AuthorizedClientInterceptor authorizedClientInterceptor(OAuth2AuthorizedClientManager clientManager)
+    {
+        return new OAuth2AuthorizedClientInterceptor(clientManager);
+    }
+
+    @Bean
+    public RestTemplate restTemplate(OAuth2AuthorizedClientInterceptor interceptor)
+    {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getInterceptors().add(interceptor);
+        return restTemplate;
+    }
+
+    @Bean
+    public RestTemplateHelper restTemplateHelper(RestTemplate restTemplate)
+    {
+        return new RestTemplateHelper(restTemplate);
     }
 }
