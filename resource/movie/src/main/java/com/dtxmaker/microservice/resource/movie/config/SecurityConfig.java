@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     private JwtAuthenticationConverter jwtAuthenticationConverter()
     {
         final JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new KeycloakRealmRoleConverter());
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new KeycloakClientRoleConverter());
         return jwtAuthenticationConverter;
     }
 
