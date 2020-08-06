@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 
 @Configuration
 public class RestTemplateConfig
@@ -41,6 +42,7 @@ public class RestTemplateConfig
     public RestTemplate restTemplate(OAuth2AuthorizedClientInterceptor interceptor)
     {
         RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory("http://localhost:8084"));
         restTemplate.getInterceptors().add(interceptor);
         return restTemplate;
     }

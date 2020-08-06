@@ -18,13 +18,13 @@ public class MovieService
 
     public Movie[] getMovies()
     {
-        String url = "http://localhost:8084/movie-service/api/movies";
+        String url = "/movie-service/api/movies";
         return restTemplateHelper.get(url, Movie[].class);
     }
 
     public Movie getMovie(Long movieId)
     {
-        String url = "http://localhost:8084/movie-service/api/movies/{movieId}";
+        String url = "/movie-service/api/movies/{movieId}";
         return restTemplateHelper.get(url, Movie.class, movieId);
     }
 }
