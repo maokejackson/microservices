@@ -15,7 +15,7 @@ public class UsernameSubClaimAdapter implements Converter<Map<String, Object>, M
     {
         Map<String, Object> convertedClaims = delegate.convert(claims);
 
-        String username = (String) convertedClaims.get("user_name");
+        String username = (String) convertedClaims.get("preferred_username");
         convertedClaims.put("sub", username);
 
         return convertedClaims;
