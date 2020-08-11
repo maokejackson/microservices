@@ -7,21 +7,51 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.security.Principal;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class HomeController
 {
-    private final MovieService movieService;
+    private final HttpServletRequest request;
+    private final MovieService       movieService;
 
     @Autowired
-    public HomeController(MovieService movieService)
+    public HomeController(HttpServletRequest request, MovieService movieService)
     {
+        this.request = request;
         this.movieService = movieService;
     }
 
     @GetMapping
-    public String home(Model model)
+    public String home()
     {
-        model.addAttribute("movies", movieService.getMovies());
         return "index";
+    }
+
+    //    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/movies")
+    public String movies(Model model, Principal principal)
+    {
+        model.addAttribute("name", principal.getName());
+        model.addAttribute("movies", movieService.getMovies());
+        return "movies";
+    }
+
+    //    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/manage")
+    public String manage(Model model, Principal principal)
+    {
+        model.addAttribute("name", principal.getName());
+        model.addAttribute("movies", movieService.getMovies());
+        return "manage";
+    }
+
+    @GetMapping(value = "/logout")
+    public String logout() throws ServletException
+    {
+        request.logout();
+        return "redirect:/";
     }
 }

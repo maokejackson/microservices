@@ -28,9 +28,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         // @formatter:off
         http
             .authorizeRequests()
-                .anyRequest().permitAll()
+                .antMatchers("/").permitAll()
+                .anyRequest().authenticated()
                 .and()
-            .oauth2Client()
+            .oauth2Login()
         ;
         // @formatter:on
     }

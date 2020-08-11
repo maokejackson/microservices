@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Home | Cinema</title>
+    <title>Manage Cinema</title>
 
     <!-- Style -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
@@ -20,14 +20,19 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/movies">Browse Movies</a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/manage">Manage Cinema <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/manage">Manage Cinema</a>
+                <a class="nav-link" href="/logout">Logout</a>
             </li>
         </ul>
     </div>
@@ -36,8 +41,9 @@
 <main role="main" class="container">
 
     <div class="starter-template">
-        <h1>Cinema</h1>
-        <p class="lead">Welcome to the cinema. You are free to visit this page since it is not protected.</p>
+        <h1>Hello <span th:text="${name}"></span></h1>
+        <p class="lead">This page is protected. You have admin privileges, so you can manage the cinema.</p>
+        <img src="/images/cinema.png" class="img-fluid">
     </div>
 
 </main><!-- /.container -->
