@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Authorization Service" type="Application" factoryName="Application">
+  <configuration default="false" name="3 - Authorization Service" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.dtxmaker.microservice.auth.AuthorizationServiceApplication" />
     <module name="microservice-auth" />
     <extension name="coverage">
