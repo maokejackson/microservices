@@ -42,23 +42,32 @@
 
     <div class="starter-template">
         <h1>Hello <span th:text="${name}"></span></h1>
-        <p class="lead">This page is protected. You have member privileges, so you can browse the movies.</p>
+        <p class="lead">This page is protected. You have user privileges, so you can browse the movies.</p>
     </div>
 
     <table class="table">
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Poster</th>
+            <th scope="col">Movie</th>
+            <th scope="col">Reviews</th>
         </tr>
         </thead>
 
         <tbody>
         <tr th:each="movie : ${movies}">
-            <td th:text="${movie.id}"></td>
-            <td th:text="${movie.title}"></td>
-            <td><img th:src="@{${movie.poster}}" /></td>
+            <td th:text="${movie.id}">
+            </td>
+            <td>
+                <img th:src="@{${movie.poster}}" />
+                <div th:text="${movie.title}"></div>
+            </td>
+            <td>
+                <blockquote th:each="review : ${movie.reviews}" class="blockquote">
+                    <p th:text="${review.review}" class="mb-2"></p>
+                    <footer th:text="${review.authorName}" class="blockquote-footer"></footer>
+                </blockquote>
+            </td>
         </tr>
         </tbody>
     </table>
