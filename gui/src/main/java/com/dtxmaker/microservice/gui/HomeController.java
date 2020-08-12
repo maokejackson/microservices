@@ -3,6 +3,7 @@ package com.dtxmaker.microservice.gui;
 import com.dtxmaker.microservice.gui.movie.MovieService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ public class HomeController
         return "index";
     }
 
-    //    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_user')")
     @GetMapping("/movies")
     public String movies(Model model, Principal principal)
     {
@@ -39,7 +40,7 @@ public class HomeController
         return "movies";
     }
 
-    //    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_admin')")
     @GetMapping("/manage")
     public String manage(Model model, Principal principal)
     {
