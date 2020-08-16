@@ -1,0 +1,15 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: configuration-repository
+  cloud:
+    config:
+      server:
+        git:
+          uri: file:///@basedir@/../config-repos
+
+eureka:
+  instance:
+    prefer-ip-address: true
