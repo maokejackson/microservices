@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Review Service" type="Application" factoryName="Application">
+  <configuration default="false" name="4 - Review Service" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.dtxmaker.microservice.resource.review.ReviewServiceApplication" />
     <module name="microservice-resource-review" />
     <extension name="coverage">

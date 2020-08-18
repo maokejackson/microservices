@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="GUI Application" type="Application" factoryName="Application">
+  <configuration default="false" name="6 - GUI Application" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.dtxmaker.microservice.gui.GuiApplication" />
     <module name="microservice-gui" />
     <extension name="coverage">
