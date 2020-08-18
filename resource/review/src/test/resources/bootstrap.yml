@@ -1,0 +1,46 @@
+server:
+  port: 8083
+
+eureka:
+  client:
+    enabled: false
+
+keycloak:
+  realm: microservices
+  auth-server-url: http://localhost:8180/auth
+  ssl-required: external
+  use-resource-role-mappings: true
+  principal-attribute: preferred_username
+  resource: review-service
+  credentials:
+    secret: abb0f2a1-a32a-4c59-8ecb-46784a83e7f2
+  bearer-only: true
+
+spring:
+  application:
+    name: review-service
+  cloud:
+    config:
+      enabled: false
+  datasource:
+    url: jdbc:h2:mem:reviews
+    driver-class-name: org.h2.Driver
+    username: sa
+  jpa:
+    open-in-view: false
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: ${keycloak.resource}
+            client-secret: ${keycloak.credentials.secret}
+        provider:
+          keycloak:
+            authorization-uri: ${keycloak.auth-server-url}/realms/microservices/protocol/openid-connect/auth
+            token-uri: ${keycloak.auth-server-url}/realms/microservices/protocol/openid-connect/token
+            user-info-uri: ${keycloak.auth-server-url}/realms/microservices/protocol/openid-connect/userinfo
+            jwk-set-uri: ${keycloak.auth-server-url}/realms/microservices/protocol/openid-connect/certs
+            user-name-attribute: ${keycloak.principal-attribute}
+      resourceserver:
+        jwt.jwk-set-uri: ${keycloak.auth-server-url}/realms/microservices/protocol/openid-connect/certs
