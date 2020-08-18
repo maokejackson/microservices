@@ -6,6 +6,16 @@ spring:
     name: review-service
   cloud:
     config:
+      discovery:
+        enabled: true
+        service-id: config-repository
       name: ${spring.application.name}
-      uri: http://localhost:8888
       fail-fast: true
+
+eureka:
+  instance:
+    hostname: localhost
+    port: 8761
+  client:
+    service-url:
+      default-zone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka
