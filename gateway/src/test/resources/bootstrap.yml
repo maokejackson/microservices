@@ -1,0 +1,49 @@
+server:
+  port: 8084
+
+zuul:
+  sensitive-headers: Cookie,Set-Cookie
+  routes:
+    movie-service: /movie-service/**
+    review-service: /review-service/**
+
+eureka:
+  client:
+    enabled: false
+
+keycloak:
+  realm: microservices
+  auth-server-url: http://localhost:8180/auth
+  ssl-required: external
+  use-resource-role-mappings: true
+  principal-attribute: preferred_username
+  resource: api-gateway
+  credentials:
+    secret: bd8ea22a-4629-4d1a-8da9-789cb4948416
+  bearer-only: true
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    config:
+      enabled: false
+    loadbalancer:
+      ribbon:
+        enabled: false
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: ${keycloak.resource}
+            client-secret: ${keycloak.credentials.secret}
+        provider:
+          keycloak:
+            authorization-uri: ${keycloak.auth-server-url}/realms/microservices/protocol/openid-connect/auth
+            token-uri: ${keycloak.auth-server-url}/realms/microservices/protocol/openid-connect/token
+            user-info-uri: ${keycloak.auth-server-url}/realms/microservices/protocol/openid-connect/userinfo
+            jwk-set-uri: ${keycloak.auth-server-url}/realms/microservices/protocol/openid-connect/certs
+            user-name-attribute: ${keycloak.principal-attribute}
+      resourceserver:
+        jwt.jwk-set-uri: ${keycloak.auth-server-url}/realms/microservices/protocol/openid-connect/certs
