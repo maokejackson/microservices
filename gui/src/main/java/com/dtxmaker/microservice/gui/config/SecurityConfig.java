@@ -36,7 +36,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
         // @formatter:off
         web
             .ignoring()
-                .antMatchers("/webjars/**");
+                .antMatchers("/webjars/**", "/favicon.ico", "/css/*.css");
         // @formatter:on
     }
 
