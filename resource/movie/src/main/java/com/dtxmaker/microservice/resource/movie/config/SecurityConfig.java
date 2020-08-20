@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends ResourceServerWebSecurityConfigurerAdapter
 {
-    @Value("${spring.security.oauth2.client.registration.keycloak.client-id}")
+    @Value("${spring.security.oauth2.client.registration.movie-service.client-id}")
     private String clientId;
 
     @Override
