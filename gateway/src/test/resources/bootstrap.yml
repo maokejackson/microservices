@@ -31,6 +31,10 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false
+    gateway:
+      discovery:
+        locator:
+          enabled: true
   security:
     oauth2:
       client:
