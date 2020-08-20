@@ -12,7 +12,7 @@ import java.util.List;
 @FeignClient(name = "review-service", /*fallback = ReviewServiceFallback.class,*/ fallbackFactory = ReviewServiceFallbackFactory.class)
 public interface ReviewsFeignClient
 {
-    @GetMapping("/review-service/api/reviews")
+    @GetMapping("/api/reviews")
     List<MovieReview> getMovieReviews(@RequestHeader("Authorization") String authHeader,
             @RequestParam("movieId") Long movieId);
 }
