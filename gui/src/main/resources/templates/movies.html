@@ -25,14 +25,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item active" sec:authorize="hasRole('ROLE_user')">
                 <a class="nav-link" href="/movies">Browse Movies <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item" sec:authorize="hasRole('ROLE_admin')">
                 <a class="nav-link" href="/manage">Manage Cinema</a>
             </li>
         </ul>
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto" sec:authorize="isAuthenticated()">
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>
             </li>

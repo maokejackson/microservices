@@ -45,11 +45,17 @@ public class HomeController
     public String manage(Model model, Principal principal)
     {
         model.addAttribute("name", principal.getName());
-        model.addAttribute("movies", movieService.getMovies());
         return "manage";
     }
 
-    @GetMapping(value = "/logout")
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/login")
+    public String login()
+    {
+        return "redirect:/";
+    }
+
+    @GetMapping("/logout")
     public String logout() throws ServletException
     {
         request.logout();
