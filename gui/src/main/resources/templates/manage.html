@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8" />
-    <title>Manage Cinema</title>
+    <title>Manage Cinema | Cinema</title>
 
     <!-- Style -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
@@ -26,7 +28,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/movies">Browse Movies</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item" sec:authorize="hasRole('ROLE_admin')">
                 <a class="nav-link" href="/manage">Manage Cinema <span class="sr-only">(current)</span></a>
             </li>
         </ul>
