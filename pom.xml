@@ -28,7 +28,7 @@
 
     <properties>
         <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
-        <keycloak.version>11.0.0</keycloak.version>
+        <keycloak.version>11.0.1</keycloak.version>
     </properties>
 
     <dependencies>
