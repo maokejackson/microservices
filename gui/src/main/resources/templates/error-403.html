@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8" />
+    <title>Access Denied | Cinema</title>
+
+    <!-- Style -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Cinema</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</span></a>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('ROLE_user')">
+                <a class="nav-link" href="/movies">Browse Movies</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('ROLE_admin')">
+                <a class="nav-link" href="/manage">Manage Cinema</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto" sec:authorize="isAuthenticated()">
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto" sec:authorize="!isAuthenticated()">
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+        <h1>Access Denied</h1>
+        <p class="lead">You don't have permission to access this page.</p>
+    </div>
+
+</main><!-- /.container -->
+
+<!-- Scripts -->
+<script th:src="@{/webjars/jquery/jquery.slim.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+
+</body>
+</html>
