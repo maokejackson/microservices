@@ -1,0 +1,18 @@
+server:
+  port: 8888
+
+eureka:
+  client:
+    enabled: false
+
+spring:
+  application:
+    name: config-repository
+  cloud:
+    config:
+      server:
+        git:
+          uri: file:///@basedir@/../config-repos
+    loadbalancer:
+      ribbon:
+        enabled: false

@@ -1,12 +1,6 @@
 server:
   port: 8084
 
-zuul:
-  sensitive-headers: Cookie,Set-Cookie
-  routes:
-    movie-service: /movie-service/**
-    review-service: /review-service/**
-
 eureka:
   client:
     enabled: false
@@ -35,6 +29,21 @@ spring:
       discovery:
         locator:
           enabled: true
+      routes:
+        - id: movie-service
+          uri: lb://movie-service
+          predicates:
+            - Path=/movie-service/**
+          filters:
+            - StripPrefix=1
+            - TokenRelay=
+        - id: review-service
+          uri: lb://review-service
+          predicates:
+            - Path=/review-service/**
+          filters:
+            - StripPrefix=1
+            - TokenRelay=
   security:
     oauth2:
       client:
