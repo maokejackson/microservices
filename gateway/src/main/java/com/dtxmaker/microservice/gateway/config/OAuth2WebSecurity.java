@@ -1,5 +1,6 @@
 package com.dtxmaker.microservice.gateway.config;
 
+import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -15,6 +16,7 @@ public class OAuth2WebSecurity
         http.csrf()
                 .disable()
             .authorizeExchange()
+                .matchers(EndpointRequest.toAnyEndpoint()).permitAll()
                 .anyExchange().authenticated()
                 .and()
             .oauth2Login()
