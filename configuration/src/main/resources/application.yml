@@ -12,14 +12,10 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false
+  devtools:
+    livereload:
+      enabled: false
 
 eureka:
   instance:
     prefer-ip-address: true
-
----
-spring:
-  profiles: dev
-  devtools:
-    livereload:
-      enabled: false

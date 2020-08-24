@@ -19,10 +19,3 @@ eureka:
   client:
     service-url:
       default-zone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka
-
----
-spring:
-  profiles: dev
-  devtools:
-    livereload:
-      enabled: false
