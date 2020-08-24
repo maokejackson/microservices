@@ -32,7 +32,8 @@ spring:
     oauth2:
       client:
         registration:
-          keycloak:
+          review-service:
+            provider: keycloak
             client-id: ${keycloak.resource}
             client-secret: ${keycloak.credentials.secret}
         provider:

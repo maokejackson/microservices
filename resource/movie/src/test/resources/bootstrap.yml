@@ -36,7 +36,8 @@ spring:
     oauth2:
       client:
         registration:
-          keycloak:
+          movie-service:
+            provider: keycloak
             client-id: ${keycloak.resource}
             client-secret: ${keycloak.credentials.secret}
         provider:
