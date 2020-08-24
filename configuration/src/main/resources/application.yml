@@ -16,3 +16,10 @@ spring:
 eureka:
   instance:
     prefer-ip-address: true
+
+---
+spring:
+  profiles: dev
+  devtools:
+    livereload:
+      enabled: false
