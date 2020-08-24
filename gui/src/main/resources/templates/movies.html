@@ -61,8 +61,7 @@
             <td th:text="${movie.id}">
             </td>
             <td>
-                <img th:src="@{${movie.poster}}" />
-                <div th:text="${movie.title}"></div>
+                <img th:src="@{${movie.poster}}" th:alt="${movie.title}" th:title="${movie.title}" />
             </td>
             <td>
                 <blockquote th:each="review : ${movie.reviews}" class="blockquote">
