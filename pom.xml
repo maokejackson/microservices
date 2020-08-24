@@ -29,6 +29,7 @@
     <properties>
         <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
         <keycloak.version>11.0.1</keycloak.version>
+        <caffeine.version>2.8.5</caffeine.version>
     </properties>
 
     <dependencies>
@@ -76,6 +77,12 @@
                 <version>${keycloak.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>${caffeine.version}</version>
+                <scope>runtime</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
