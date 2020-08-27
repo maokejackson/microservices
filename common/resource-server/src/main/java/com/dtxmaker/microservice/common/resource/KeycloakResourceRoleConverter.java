@@ -8,7 +8,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class KeycloakClientRoleConverter implements Converter<Jwt, Collection<GrantedAuthority>>
+public class KeycloakResourceRoleConverter implements Converter<Jwt, Collection<GrantedAuthority>>
 {
     private static final String RESOURCE_ACCESS = "resource_access";
     private static final String ROLES           = "roles";
@@ -16,7 +16,7 @@ public class KeycloakClientRoleConverter implements Converter<Jwt, Collection<Gr
 
     private final String clientId;
 
-    public KeycloakClientRoleConverter(String clientId)
+    public KeycloakResourceRoleConverter(String clientId)
     {
         this.clientId = Objects.requireNonNull(clientId);
     }
