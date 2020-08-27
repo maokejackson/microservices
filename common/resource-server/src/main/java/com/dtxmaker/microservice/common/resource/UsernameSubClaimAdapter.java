@@ -10,12 +10,19 @@ public class UsernameSubClaimAdapter implements Converter<Map<String, Object>, M
 {
     private final MappedJwtClaimSetConverter delegate = MappedJwtClaimSetConverter.withDefaults(Collections.emptyMap());
 
+    private final String principalAttribute;
+
+    public UsernameSubClaimAdapter(String principalAttribute)
+    {
+        this.principalAttribute = principalAttribute;
+    }
+
     @Override
     public Map<String, Object> convert(Map<String, Object> claims)
     {
         Map<String, Object> convertedClaims = delegate.convert(claims);
 
-        String username = (String) convertedClaims.get("preferred_username");
+        String username = (String) convertedClaims.get(principalAttribute);
         convertedClaims.put("sub", username);
 
         return convertedClaims;
