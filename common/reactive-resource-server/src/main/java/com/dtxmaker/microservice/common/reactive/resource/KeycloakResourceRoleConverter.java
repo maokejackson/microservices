@@ -1,4 +1,4 @@
-package com.dtxmaker.microservice.gateway.config;
+package com.dtxmaker.microservice.common.reactive.resource;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class KeycloakClientRoleConverter implements Converter<Jwt, Flux<GrantedAuthority>>
+public class KeycloakResourceRoleConverter implements Converter<Jwt, Flux<GrantedAuthority>>
 {
     private static final String RESOURCE_ACCESS = "resource_access";
     private static final String ROLES           = "roles";
@@ -21,7 +21,7 @@ public class KeycloakClientRoleConverter implements Converter<Jwt, Flux<GrantedA
 
     private final String clientId;
 
-    public KeycloakClientRoleConverter(String clientId)
+    public KeycloakResourceRoleConverter(String clientId)
     {
         this.clientId = Objects.requireNonNull(clientId);
     }
@@ -31,10 +31,7 @@ public class KeycloakClientRoleConverter implements Converter<Jwt, Flux<GrantedA
     {
         Map<String, Map<String, List<String>>> authorities = jwt.getClaim(RESOURCE_ACCESS);
 
-        if (authorities == null)
-        {
-            return Flux.empty();
-        }
+        if (authorities == null) return Flux.empty();
 
         List<GrantedAuthority> list = authorities.getOrDefault(clientId, Collections.emptyMap())
                 .getOrDefault(ROLES, Collections.emptyList()).stream()

@@ -18,6 +18,7 @@
 
     <modules>
         <module>common/resource-server</module>
+        <module>common/reactive-resource-server</module>
         <module>discovery</module>
         <module>configuration</module>
         <module>gateway</module>
@@ -57,6 +58,11 @@
             <dependency>
                 <groupId>com.dtxmaker.microservice</groupId>
                 <artifactId>microservice-common-resource-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dtxmaker.microservice</groupId>
+                <artifactId>microservice-reactive-resource-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
