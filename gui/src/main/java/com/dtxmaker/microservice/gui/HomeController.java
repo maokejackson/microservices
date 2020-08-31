@@ -56,9 +56,16 @@ public class HomeController
     }
 
     @GetMapping("/logout")
-    public String logout() throws ServletException
+    public String logout(Principal principal) throws ServletException
     {
-        request.logout();
-        return "redirect:/";
+        if (principal == null)
+        {
+            return "redirect:/";
+        }
+        else
+        {
+            request.logout();
+            return "logout";
+        }
     }
 }
