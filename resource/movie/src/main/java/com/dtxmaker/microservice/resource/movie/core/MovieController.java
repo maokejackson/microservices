@@ -2,7 +2,10 @@ package com.dtxmaker.microservice.resource.movie.core;
 
 import com.dtxmaker.microservice.resource.movie.feign.ReviewsFeignClient;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,8 +15,6 @@ import javax.persistence.EntityNotFoundException;
 @RequestMapping("/api/movies")
 public class MovieController
 {
-    private static final String AUTHORIZATION_HEADER = "Authorization";
-
     private final MovieRepository    movieRepository;
     private final ReviewsFeignClient reviewsFeignClient;
 
@@ -24,20 +25,19 @@ public class MovieController
     }
 
     @GetMapping
-    public List<MovieDTO> getMovies(@RequestHeader(AUTHORIZATION_HEADER) String authHeader)
+    public List<MovieDTO> getMovies()
     {
         List<Movie> movies = movieRepository.findAll();
         return movies.stream()
-                .map(movie -> new MovieDTO(movie, reviewsFeignClient.getMovieReviews(authHeader, movie.getId())))
+                .map(movie -> new MovieDTO(movie, reviewsFeignClient.getMovieReviews(movie.getId())))
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/{movieId}")
-    public MovieDTO getMovie(@RequestHeader(AUTHORIZATION_HEADER) String authHeader,
-            @PathVariable("movieId") Long movieId)
+    public MovieDTO getMovie(@PathVariable("movieId") Long movieId)
     {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new EntityNotFoundException("Movie not found"));
-        return new MovieDTO(movie, reviewsFeignClient.getMovieReviews(authHeader, movieId));
+        return new MovieDTO(movie, reviewsFeignClient.getMovieReviews(movieId));
     }
 }

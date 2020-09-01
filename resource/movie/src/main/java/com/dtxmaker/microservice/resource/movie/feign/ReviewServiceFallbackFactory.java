@@ -17,7 +17,7 @@ public class ReviewServiceFallbackFactory implements FallbackFactory<ReviewsFeig
     @Override
     public ReviewsFeignClient create(Throwable throwable)
     {
-        return (authHeader, movieId) -> {
+        return movieId -> {
             log.error("Error occurred trying to fetch reviews from review service", throwable);
             return Collections.emptyList();
         };

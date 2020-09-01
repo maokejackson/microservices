@@ -4,7 +4,6 @@ import com.dtxmaker.microservice.resource.movie.core.MovieReview;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -13,6 +12,5 @@ import java.util.List;
 public interface ReviewsFeignClient
 {
     @GetMapping("/api/reviews")
-    List<MovieReview> getMovieReviews(@RequestHeader("Authorization") String authHeader,
-            @RequestParam("movieId") Long movieId);
+    List<MovieReview> getMovieReviews(@RequestParam("movieId") Long movieId);
 }
