@@ -29,18 +29,21 @@ spring:
       discovery:
         locator:
           enabled: true
-      default-filters:
-        - StripPrefix=1
-        - TokenRelay=
       routes:
         - id: movie-service
           uri: lb://movie-service
           predicates:
             - Path=/movie-service/**
+          filters:
+            - StripPrefix=1
+            - TokenRelay=
         - id: review-service
           uri: lb://review-service
           predicates:
             - Path=/review-service/**
+          filters:
+            - StripPrefix=1
+            - TokenRelay=
   security:
     oauth2:
       client:
