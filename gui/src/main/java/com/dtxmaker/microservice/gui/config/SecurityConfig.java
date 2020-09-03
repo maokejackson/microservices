@@ -12,6 +12,7 @@ import org.keycloak.adapters.springsecurity.filter.KeycloakSecurityContextReques
 import org.keycloak.adapters.springsecurity.management.HttpSessionManager;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -37,7 +38,8 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
         // @formatter:off
         web
             .ignoring()
-                .antMatchers("/webjars/**", "/favicon.ico", "/css/*.css");
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+        ;
         // @formatter:on
     }
 
