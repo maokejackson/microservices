@@ -41,8 +41,7 @@ public class SwaggerConfig
     private ApiInfo apiInfo()
     {
         return new ApiInfoBuilder()
-                .title("Review Service API")
-                .description("Review Service API")
+                .title("Review API Docs")
                 .version("1.0")
                 .build();
     }
