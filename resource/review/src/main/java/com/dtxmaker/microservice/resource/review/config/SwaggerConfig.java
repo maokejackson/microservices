@@ -3,6 +3,7 @@ package com.dtxmaker.microservice.resource.review.config;
 import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -19,8 +20,7 @@ import java.util.List;
 @Configuration
 public class SwaggerConfig
 {
-    private static final String AUTHORIZATION_HEADER    = "Authorization";
-    private static final String DEFAULT_INCLUDE_PATTERN = "/api/.*";
+    private static final String DEFAULT_API_PATTERN = "/api/.*";
 
     @Bean
     public Docket restApi()
@@ -34,7 +34,7 @@ public class SwaggerConfig
                 .useDefaultResponseMessages(false);
 
         return docket.select()
-                .paths(PathSelectors.regex(DEFAULT_INCLUDE_PATTERN))
+                .paths(PathSelectors.regex(DEFAULT_API_PATTERN))
                 .build();
     }
 
@@ -48,14 +48,14 @@ public class SwaggerConfig
 
     private ApiKey apiKey()
     {
-        return new ApiKey("JWT", AUTHORIZATION_HEADER, "header");
+        return new ApiKey("JWT", HttpHeaders.AUTHORIZATION, "header");
     }
 
     private SecurityContext securityContext()
     {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.regex(DEFAULT_INCLUDE_PATTERN))
+                .operationSelector(context -> context.requestMappingPattern().matches(DEFAULT_API_PATTERN))
                 .build();
     }
 
