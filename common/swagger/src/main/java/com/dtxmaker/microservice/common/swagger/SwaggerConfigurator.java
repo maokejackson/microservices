@@ -1,10 +1,7 @@
-package com.dtxmaker.microservice.resource.review.config;
+package com.dtxmaker.microservice.common.swagger;
 
-import com.google.common.collect.Lists;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -15,12 +12,28 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import java.util.Collections;
 import java.util.List;
 
-@Configuration
-public class SwaggerConfig
+public abstract class SwaggerConfigurator
 {
-    private static final String DEFAULT_API_PATTERN = "/api/.*";
+    public static final String[] RESOURCES = {
+            // -- swagger ui
+            "/api",
+            "/v3/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui/**",
+            "/webjars/**"
+            // other public endpoints of your API may be appended to this array
+    };
+
+    @Autowired
+    private SwaggerProperties properties;
+
+    protected abstract Class<?>[] genericModelSubstitutes();
 
     @Bean
     public Docket restApi()
@@ -28,34 +41,34 @@ public class SwaggerConfig
         Docket docket = new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo())
                 .pathMapping("/")
-                .genericModelSubstitutes(ResponseEntity.class)
-                .securityContexts(Lists.newArrayList(securityContext()))
-                .securitySchemes(Lists.newArrayList(apiKey()))
+                .genericModelSubstitutes(genericModelSubstitutes())
+                .securityContexts(Collections.singletonList(securityContext()))
+                .securitySchemes(Collections.singletonList(apiKey()))
                 .useDefaultResponseMessages(false);
 
         return docket.select()
-                .paths(PathSelectors.regex(DEFAULT_API_PATTERN))
+                .paths(PathSelectors.regex(properties.getApiPattern()))
                 .build();
     }
 
     private ApiInfo apiInfo()
     {
         return new ApiInfoBuilder()
-                .title("Review API Docs")
-                .version("1.0")
+                .title(properties.getTitle())
+                .version(properties.getVersion())
                 .build();
     }
 
     private ApiKey apiKey()
     {
-        return new ApiKey("JWT", HttpHeaders.AUTHORIZATION, "header");
+        return new ApiKey("JWT", "Authorization", "header");
     }
 
     private SecurityContext securityContext()
     {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
-                .operationSelector(context -> context.requestMappingPattern().matches(DEFAULT_API_PATTERN))
+                .operationSelector(context -> context.requestMappingPattern().matches(properties.getApiPattern()))
                 .build();
     }
 
@@ -63,6 +76,6 @@ public class SwaggerConfig
     {
         AuthorizationScope scope = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] scopes = { scope };
-        return Lists.newArrayList(new SecurityReference("JWT", scopes));
+        return Collections.singletonList(new SecurityReference("JWT", scopes));
     }
 }

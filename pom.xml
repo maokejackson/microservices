@@ -17,6 +17,7 @@
     </parent>
 
     <modules>
+        <module>common/swagger</module>
         <module>common/resource-server</module>
         <module>common/reactive-resource-server</module>
         <module>discovery</module>
@@ -56,6 +57,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.dtxmaker.microservice</groupId>
+                <artifactId>microservice-common-swagger</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.dtxmaker.microservice</groupId>
                 <artifactId>microservice-common-resource-server</artifactId>

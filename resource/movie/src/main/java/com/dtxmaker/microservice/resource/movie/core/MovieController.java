@@ -2,6 +2,8 @@ package com.dtxmaker.microservice.resource.movie.core;
 
 import com.dtxmaker.microservice.resource.movie.feign.ReviewsFeignClient;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 
+@Api(tags = "Movie")
 @RestController
 @RequestMapping("/api/movies")
 public class MovieController
@@ -24,6 +27,7 @@ public class MovieController
         this.reviewsFeignClient = reviewsFeignClient;
     }
 
+    @ApiOperation(value = "Get list of movies", response = MovieDTO.class)
     @GetMapping
     public List<MovieDTO> getMovies()
     {
@@ -33,6 +37,7 @@ public class MovieController
                 .collect(Collectors.toList());
     }
 
+    @ApiOperation(value = "Get a movie", response = MovieDTO.class)
     @GetMapping("/{movieId}")
     public MovieDTO getMovie(@PathVariable("movieId") Long movieId)
     {
