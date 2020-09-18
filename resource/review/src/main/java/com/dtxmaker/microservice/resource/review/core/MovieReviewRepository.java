@@ -1,12 +1,9 @@
 package com.dtxmaker.microservice.resource.review.core;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.r2dbc.repository.R2dbcRepository;
+import reactor.core.publisher.Flux;
 
-import java.util.List;
-
-@Repository
-public interface MovieReviewRepository extends JpaRepository<MovieReview, Long>
+public interface MovieReviewRepository extends R2dbcRepository<MovieReview, Long>
 {
-    List<MovieReview> findAllByMovieId(Long movieId);
+    Flux<MovieReview> findAllByMovieId(Long movieId);
 }

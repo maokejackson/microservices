@@ -1,21 +1,20 @@
 package com.dtxmaker.microservice.resource.movie.core;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-@Getter
-@Setter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Table
 public class Movie
 {
     @Id
-    @GeneratedValue
     private Long   id;
     private String title;
     private String poster;

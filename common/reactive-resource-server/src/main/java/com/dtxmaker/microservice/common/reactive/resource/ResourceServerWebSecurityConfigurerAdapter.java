@@ -1,5 +1,7 @@
 package com.dtxmaker.microservice.common.reactive.resource;
 
+import com.dtxmaker.microservice.common.swagger.SwaggerConfigurator;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.context.annotation.Bean;
@@ -34,6 +36,9 @@ public abstract class ResourceServerWebSecurityConfigurerAdapter
         // @formatter:off
         http.csrf()
                 .disable()
+            .authorizeExchange()
+                .pathMatchers(SwaggerConfigurator.RESOURCES).permitAll()
+                .and()
             .oauth2ResourceServer()
                 .jwt()
                 .jwtAuthenticationConverter(jwtAuthenticationConverter())

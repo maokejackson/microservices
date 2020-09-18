@@ -1,48 +1,37 @@
 package com.dtxmaker.microservice.resource.movie.core;
 
-import com.dtxmaker.microservice.resource.movie.feign.ReviewsFeignClient;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.persistence.EntityNotFoundException;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Api(tags = "Movie")
 @RestController
 @RequestMapping("/api/movies")
 public class MovieController
 {
-    private final MovieRepository    movieRepository;
-    private final ReviewsFeignClient reviewsFeignClient;
+    private final MovieRepository movieRepository;
 
-    public MovieController(MovieRepository movieRepository, ReviewsFeignClient reviewsFeignClient)
+    public MovieController(MovieRepository movieRepository)
     {
         this.movieRepository = movieRepository;
-        this.reviewsFeignClient = reviewsFeignClient;
     }
 
-    @ApiOperation(value = "Get list of movies", response = MovieDTO.class)
+    @ApiOperation(value = "Get all movies", response = Movie.class)
     @GetMapping
-    public List<MovieDTO> getMovies()
+    public Flux<Movie> getMovies()
     {
-        List<Movie> movies = movieRepository.findAll();
-        return movies.stream()
-                .map(movie -> new MovieDTO(movie, reviewsFeignClient.getMovieReviews(movie.getId())))
-                .collect(Collectors.toList());
+        return movieRepository.findAll();
     }
 
-    @ApiOperation(value = "Get a movie", response = MovieDTO.class)
+    @ApiOperation(value = "Get a movie", response = Movie.class)
     @GetMapping("/{movieId}")
-    public MovieDTO getMovie(@PathVariable("movieId") Long movieId)
+    public Mono<Movie> getMovie(@PathVariable("movieId") Long movieId)
     {
-        Movie movie = movieRepository.findById(movieId)
-                .orElseThrow(() -> new EntityNotFoundException("Movie not found"));
-        return new MovieDTO(movie, reviewsFeignClient.getMovieReviews(movieId));
+        return movieRepository.findById(movieId);
     }
 }

@@ -1,4 +1,4 @@
-package com.dtxmaker.microservice.resource.movie.core;
+package com.dtxmaker.microservice.gateway.movie;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

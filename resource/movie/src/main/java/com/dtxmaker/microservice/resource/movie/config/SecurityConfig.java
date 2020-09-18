@@ -1,15 +1,15 @@
 package com.dtxmaker.microservice.resource.movie.config;
 
-import com.dtxmaker.microservice.common.resource.ResourceServerConfiguration;
-import com.dtxmaker.microservice.common.resource.ResourceServerWebSecurityConfigurerAdapter;
+import com.dtxmaker.microservice.common.reactive.resource.ResourceServerConfiguration;
+import com.dtxmaker.microservice.common.reactive.resource.ResourceServerWebSecurityConfigurerAdapter;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest;
+import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
 
 @ResourceServerConfiguration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableReactiveMethodSecurity
 public class SecurityConfig extends ResourceServerWebSecurityConfigurerAdapter
 {
     @Value("${spring.security.oauth2.client.registration.movie-service.client-id}")
@@ -22,13 +22,13 @@ public class SecurityConfig extends ResourceServerWebSecurityConfigurerAdapter
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception
+    protected void configure(ServerHttpSecurity http)
     {
         super.configure(http);
         // @formatter:off
-        http.authorizeRequests()
-                .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
-                .anyRequest().authenticated()
+        http.authorizeExchange()
+                .matchers(EndpointRequest.toAnyEndpoint()).permitAll()
+                .anyExchange().authenticated()
         ;
         // @formatter:on
     }
