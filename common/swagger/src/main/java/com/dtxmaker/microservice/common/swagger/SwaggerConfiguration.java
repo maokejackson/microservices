@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-@Retention(value = RUNTIME)
-@Target(value = { TYPE })
+@Retention(RUNTIME)
+@Target(TYPE)
 @Configuration
 @ComponentScan(basePackageClasses = SwaggerComponents.class)
 public @interface SwaggerConfiguration

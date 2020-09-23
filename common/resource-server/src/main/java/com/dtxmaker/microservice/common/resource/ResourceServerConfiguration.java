@@ -10,8 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-@Retention(value = RUNTIME)
-@Target(value = { TYPE })
+@Retention(RUNTIME)
+@Target(TYPE)
 @Configuration
 @ComponentScan(basePackageClasses = ResourceServerSecurityComponents.class)
 @EnableWebSecurity

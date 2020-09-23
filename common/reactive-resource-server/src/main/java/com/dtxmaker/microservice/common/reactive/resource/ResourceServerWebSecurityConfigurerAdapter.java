@@ -2,21 +2,12 @@ package com.dtxmaker.microservice.common.reactive.resource;
 
 import com.dtxmaker.microservice.common.swagger.SwaggerConfigurator;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.server.resource.authentication.ReactiveJwtAuthenticationConverter;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-import reactor.core.publisher.Flux;
 
 public abstract class ResourceServerWebSecurityConfigurerAdapter
 {
-    @Value("${keycloak.use-resource-role-mappings:false}")
-    private boolean useResourceRoleMappings;
-
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http)
     {
@@ -29,34 +20,14 @@ public abstract class ResourceServerWebSecurityConfigurerAdapter
         // @formatter:off
         http.csrf()
                 .disable()
+            .httpBasic()
+                .disable()
             .authorizeExchange()
                 .pathMatchers(SwaggerConfigurator.RESOURCES).permitAll()
                 .and()
             .oauth2ResourceServer()
                 .jwt()
-                .jwtAuthenticationConverter(jwtAuthenticationConverter())
         ;
         // @formatter:on
-    }
-
-    protected abstract String oauth2ClientId();
-
-    private ReactiveJwtAuthenticationConverter jwtAuthenticationConverter()
-    {
-        ReactiveJwtAuthenticationConverter converter = new ReactiveJwtAuthenticationConverter();
-        converter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter());
-        return converter;
-    }
-
-    private Converter<Jwt, Flux<GrantedAuthority>> jwtGrantedAuthoritiesConverter()
-    {
-        if (useResourceRoleMappings)
-        {
-            return new KeycloakResourceRoleConverter(oauth2ClientId());
-        }
-        else
-        {
-            return new KeycloakRealmRoleConverter();
-        }
     }
 }
