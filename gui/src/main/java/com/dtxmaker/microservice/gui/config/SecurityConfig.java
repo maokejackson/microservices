@@ -7,8 +7,18 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
+import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -40,11 +50,45 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .anyRequest().authenticated()
                 .and()
             .oauth2Login()
+                .userInfoEndpoint()
+                    .userAuthoritiesMapper(userAuthoritiesMapper())
+                    .and()
                 .and()
             .logout()
                 .logoutSuccessHandler(oidcLogoutSuccessHandler())
         ;
         // @formatter:on
+    }
+
+    private GrantedAuthoritiesMapper userAuthoritiesMapper()
+    {
+        return authorities -> {
+            Set<GrantedAuthority> mappedAuthorities = new HashSet<>();
+
+            authorities.forEach(authority -> {
+                if (authority instanceof OidcUserAuthority)
+                {
+                    OidcUserAuthority oidcUserAuthority = (OidcUserAuthority) authority;
+                    OidcUserInfo userInfo = oidcUserAuthority.getUserInfo();
+
+                    if (userInfo.containsClaim("roles"))
+                    {
+                        List<String> roles = userInfo.getClaimAsStringList("roles");
+                        mappedAuthorities.addAll(roles.stream()
+                                .map(role -> "ROLE_" + role)
+                                .map(SimpleGrantedAuthority::new)
+                                .collect(Collectors.toList())
+                        );
+                    }
+                }
+                else
+                {
+                    mappedAuthorities.addAll(authorities);
+                }
+            });
+
+            return mappedAuthorities;
+        };
     }
 
     private OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler()
