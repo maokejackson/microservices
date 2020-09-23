@@ -897,7 +897,8 @@
       "clientAuthenticatorType": "client-secret",
       "secret": "75634444-167a-47d8-8f43-1c44f74cc43e",
       "redirectUris": [
-        "http://localhost:8080/*"
+        "http://localhost:8080/*",
+        "http://localhost:8084/*"
       ],
       "webOrigins": [],
       "notBefore": 0,
@@ -1689,9 +1690,10 @@
           "consentRequired": false,
           "config": {
             "multivalued": "true",
+            "userinfo.token.claim": "true",
             "user.attribute": "foo",
             "access.token.claim": "true",
-            "claim.name": "realm_access.roles",
+            "claim.name": "roles",
             "jsonType.label": "String"
           }
         },
@@ -2538,6 +2540,6 @@
     "clientSessionMaxLifespan": "0",
     "clientOfflineSessionIdleTimeout": "0"
   },
-  "keycloakVersion": "11.0.1",
+  "keycloakVersion": "11.0.2",
   "userManagedAccessAllowed": false
 }
