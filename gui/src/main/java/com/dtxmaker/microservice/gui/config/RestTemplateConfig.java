@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import java.util.List;
@@ -44,7 +45,8 @@ public class RestTemplateConfig
     }
 
     @Bean
-    public RestTemplate restTemplate(OAuth2AuthorizedClientManager clientManager)
+    @RequestScope
+    public RestTemplateHelper restTemplate(OAuth2AuthorizedClientManager clientManager)
     {
         List<ServiceInstance> instances = discoveryClient.getInstances("api-gateway");
 
@@ -58,12 +60,6 @@ public class RestTemplateConfig
             restTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory(baseUri));
         }
 
-        return restTemplate;
-    }
-
-    @Bean
-    public RestTemplateHelper restTemplateHelper(RestTemplate restTemplate)
-    {
         return new RestTemplateHelper(restTemplate);
     }
 }
