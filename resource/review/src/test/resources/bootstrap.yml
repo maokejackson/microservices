@@ -5,17 +5,6 @@ eureka:
   client:
     enabled: false
 
-keycloak:
-  realm: microservices
-  auth-server-url: http://localhost:8180/auth
-  ssl-required: external
-  use-resource-role-mappings: true
-  principal-attribute: preferred_username
-  resource: review-service
-  credentials:
-    secret: abb0f2a1-a32a-4c59-8ecb-46784a83e7f2
-  bearer-only: true
-
 spring:
   application:
     name: review-service
@@ -34,14 +23,15 @@ spring:
         registration:
           review-service:
             provider: keycloak
-            client-id: ${keycloak.resource}
-            client-secret: ${keycloak.credentials.secret}
+            client-id: review-service
+            client-secret: abb0f2a1-a32a-4c59-8ecb-46784a83e7f2
+            authorization-grant-type: client_credentials
         provider:
           keycloak:
-            authorization-uri: ${keycloak.auth-server-url}/realms/microservices/protocol/openid-connect/auth
-            token-uri: ${keycloak.auth-server-url}/realms/microservices/protocol/openid-connect/token
-            user-info-uri: ${keycloak.auth-server-url}/realms/microservices/protocol/openid-connect/userinfo
-            jwk-set-uri: ${keycloak.auth-server-url}/realms/microservices/protocol/openid-connect/certs
-            user-name-attribute: ${keycloak.principal-attribute}
+            authorization-uri: http://localhost:8180/auth/realms/microservices/protocol/openid-connect/auth
+            token-uri: http://localhost:8180/auth/realms/microservices/protocol/openid-connect/token
+            user-info-uri: http://localhost:8180/auth/realms/microservices/protocol/openid-connect/userinfo
+            jwk-set-uri: http://localhost:8180/auth/realms/microservices/protocol/openid-connect/certs
+            user-name-attribute: preferred_username
       resourceserver:
-        jwt.jwk-set-uri: ${keycloak.auth-server-url}/realms/microservices/protocol/openid-connect/certs
+        jwt.jwk-set-uri: http://localhost:8180/auth/realms/microservices/protocol/openid-connect/certs
