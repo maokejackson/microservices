@@ -11,9 +11,3 @@ spring:
             client-id: review-service
             client-secret: abb0f2a1-a32a-4c59-8ecb-46784a83e7f2
             authorization-grant-type: client_credentials
-
-swagger:
-  title: Review API Docs
-  version: 1.0
-  path-patterns:
-    - /api/.*
