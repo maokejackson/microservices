@@ -1,0 +1,18 @@
+spring:
+  r2dbc:
+    url: r2dbc:h2:mem://./movies
+    username: sa
+  security:
+    oauth2:
+      client:
+        registration:
+          movie-service:
+            provider: keycloak
+            client-id: movie-service
+            client-secret: eb254855-2ac2-4799-87e0-6170594b4a61
+            authorization-grant-type: client_credentials
+
+swagger:
+  title: Movie API Docs
+  version: 1.0
+  api-path: /api/.*

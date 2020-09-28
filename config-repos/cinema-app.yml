@@ -1,0 +1,16 @@
+server:
+  error:
+    whitelabel:
+      enabled: false
+    path: /error
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          cinema-app:
+            provider: keycloak
+            client-id: cinema-app
+            client-secret: 75634444-167a-47d8-8f43-1c44f74cc43e
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
