@@ -2,16 +2,14 @@ package com.dtxmaker.microservice.common.swagger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.ApiKey;
-import springfox.documentation.service.AuthorizationScope;
-import springfox.documentation.service.SecurityReference;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -33,49 +31,76 @@ public abstract class SwaggerConfigurator
     @Autowired
     private SwaggerProperties properties;
 
-    protected abstract Class<?>[] genericModelSubstitutes();
-
     @Bean
     public Docket restApi()
     {
         Docket docket = new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo())
-                .pathMapping("/")
                 .genericModelSubstitutes(genericModelSubstitutes())
-                .securityContexts(Collections.singletonList(securityContext()))
-                .securitySchemes(Collections.singletonList(apiKey()))
+                .securityContexts(securityContexts())
+                .securitySchemes(securitySchemes())
                 .useDefaultResponseMessages(false);
 
         return docket.select()
-                .paths(PathSelectors.regex(properties.getApiPattern()))
+                .paths(path -> Arrays.stream(properties.getPathPatterns()).anyMatch(path::matches))
                 .build();
+    }
+
+    protected Class<?>[] genericModelSubstitutes()
+    {
+        return new Class[] { ResponseEntity.class };
+    }
+
+    protected List<SecurityContext> securityContexts()
+    {
+        return Collections.singletonList(jwtContext());
+    }
+
+    protected List<SecurityScheme> securitySchemes()
+    {
+        return Collections.singletonList(jwtScheme());
     }
 
     private ApiInfo apiInfo()
     {
         return new ApiInfoBuilder()
                 .title(properties.getTitle())
+                .description(properties.getDescription())
                 .version(properties.getVersion())
+                .termsOfServiceUrl(properties.getTermsOfServiceUrl())
+                .contact(contact())
+                .license(properties.getLicense())
+                .licenseUrl(properties.getLicenseUrl())
                 .build();
     }
 
-    private ApiKey apiKey()
+    private Contact contact()
+    {
+        return new Contact(
+                properties.getContact().getName(),
+                properties.getContact().getUrl(),
+                properties.getContact().getEmail()
+        );
+    }
+
+    private SecurityScheme jwtScheme()
     {
         return new ApiKey("JWT", "Authorization", "header");
     }
 
-    private SecurityContext securityContext()
+    private SecurityContext jwtContext()
     {
         return SecurityContext.builder()
-                .securityReferences(defaultAuth())
-                .operationSelector(context -> context.requestMappingPattern().matches(properties.getApiPattern()))
+                .securityReferences(Collections.singletonList(jwtReference()))
+                .operationSelector(context -> Arrays.stream(properties.getPathPatterns())
+                        .anyMatch(pattern -> context.requestMappingPattern().matches(pattern)))
                 .build();
     }
 
-    private List<SecurityReference> defaultAuth()
+    private SecurityReference jwtReference()
     {
         AuthorizationScope scope = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] scopes = { scope };
-        return Collections.singletonList(new SecurityReference("JWT", scopes));
+        return new SecurityReference("JWT", scopes);
     }
 }

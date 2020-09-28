@@ -15,4 +15,5 @@ spring:
 swagger:
   title: Movie API Docs
   version: 1.0
-  api-path: /api/.*
+  path-patterns:
+    - /api/.*
