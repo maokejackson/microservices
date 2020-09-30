@@ -10,5 +10,6 @@
     <file url="file://$PROJECT_DIR$/gui/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resource/movie/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resource/review/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-boot-admin/src/main/java" charset="UTF-8" />
   </component>
 </project>
