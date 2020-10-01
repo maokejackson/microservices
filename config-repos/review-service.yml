@@ -1,3 +1,6 @@
+server:
+  port: 8083
+
 spring:
   r2dbc:
     url: r2dbc:h2:mem://./reviews
