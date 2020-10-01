@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: spring-boot-admin-server
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-repository
+      name: ${spring.application.name}
+      fail-fast: true
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka

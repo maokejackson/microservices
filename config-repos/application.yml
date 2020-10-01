@@ -18,6 +18,12 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false
+  boot:
+    admin:
+      client:
+        url: http://localhost:8002/admin
+        username: "admin"
+        password: "admin"
 
 eureka:
   instance:
