@@ -3,6 +3,8 @@ spring:
     name: spring-boot-admin-server
   cloud:
     config:
+      username: @app.config-repository.username@
+      password: @app.config-repository.password@
       discovery:
         enabled: true
         service-id: config-repository
@@ -12,4 +14,4 @@ spring:
 eureka:
   client:
     service-url:
-      default-zone: http://localhost:8761/eureka
+      defaultZone: @app.eureka-service.url@

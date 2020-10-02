@@ -55,6 +55,9 @@
     </dependencies>
 
     <build>
+        <filters>
+            <filter>${project.basedir}/../src/filters/filter-local.properties</filter>
+        </filters>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
