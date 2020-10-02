@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: config-repository
+  security:
+    user:
+      name: @app.config-repository.username@
+      password: @app.config-repository.password@
   cloud:
     config:
       server:
@@ -19,7 +23,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: @app.eureka-service.url@
+      defaultZone: @app.discovery-service.url@
   instance:
     prefer-ip-address: true
 

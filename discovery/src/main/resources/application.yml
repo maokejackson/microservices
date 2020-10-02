@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: discovery-service
+  security:
+    user:
+      name: @app.discovery-service.username@
+      password: @app.discovery-service.password@
   cloud:
     loadbalancer:
       ribbon:
@@ -14,11 +18,6 @@ spring:
         url: @app.spring-boot-admin.url@
         username: @app.spring-boot-admin.username@
         password: @app.spring-boot-admin.password@
-  #        instance:
-  #          metadata:
-  #            user:
-  #              name: ${spring.security.user.name}
-  #              password: ${spring.security.user.password}
   devtools:
     livereload:
       enabled: false
@@ -31,7 +30,7 @@ eureka:
     fetch-registry: false
     prefer-ip-address: true
     service-url:
-      defaultZone: @app.eureka-service.url@
+      defaultZone: @app.discovery-service.url@
 
 management:
   endpoint:

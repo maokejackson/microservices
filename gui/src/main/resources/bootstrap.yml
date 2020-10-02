@@ -14,4 +14,4 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: @app.eureka-service.url@
+      defaultZone: @app.discovery-service.url@
