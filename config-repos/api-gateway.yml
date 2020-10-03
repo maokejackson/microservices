@@ -1,5 +1,11 @@
 server:
   port: 8084
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: secret
+    key-store-type: pkcs12
+    key-alias: dtxmaker
+    key-password: secret
 
 spring:
   security:
@@ -32,3 +38,11 @@ spring:
           filters:
             - StripPrefix=1
             - TokenRelay=
+
+eureka:
+  instance:
+    non-secure-port-enabled: false
+    secure-port-enabled: true
+    status-page-url: https://${eureka.hostname}:${server.port}/actuator/info
+    health-check-url: https://${eureka.hostname}:${server.port}/actuator/health
+    home-page-url: https://${eureka.hostname}:${server.port}/

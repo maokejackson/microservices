@@ -140,6 +140,15 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <configuration>
+                        <nonFilteredFileExtensions>
+                            <nonFilteredFileExtension>p12</nonFilteredFileExtension>
+                        </nonFilteredFileExtensions>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <configuration>
                         <excludes>
@@ -147,6 +156,7 @@
                             <exclude>**/*.yaml</exclude>
                             <exclude>**/*.yml</exclude>
                             <exclude>**/*.sql</exclude>
+                            <exclude>**/*.p12</exclude>
                         </excludes>
                     </configuration>
                 </plugin>

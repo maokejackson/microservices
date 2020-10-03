@@ -56,6 +56,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .and()
             .logout()
                 .logoutSuccessHandler(oidcLogoutSuccessHandler())
+                .and()
+            .requiresChannel()
+                .anyRequest().requiresSecure()
         ;
         // @formatter:on
     }

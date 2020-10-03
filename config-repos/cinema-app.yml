@@ -1,5 +1,15 @@
 server:
-  port: 8080
+  port: 8443
+  ssl:
+    client-auth: need
+    key-store: classpath:keystore.p12
+    key-store-password: secret
+    key-store-type: pkcs12
+    key-alias: dtxmaker
+    key-password: secret
+    trust-store: classpath:truststore.p12
+    trust-store-password: secret
+    trust-store-type: pkcs12
   error:
     whitelabel:
       enabled: false
@@ -15,3 +25,11 @@ spring:
             client-secret: 75634444-167a-47d8-8f43-1c44f74cc43e
             authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+
+eureka:
+  instance:
+    non-secure-port-enabled: false
+    secure-port-enabled: true
+    status-page-url: https://${eureka.hostname}:${server.port}/actuator/info
+    health-check-url: https://${eureka.hostname}:${server.port}/actuator/health
+    home-page-url: https://${eureka.hostname}:${server.port}/

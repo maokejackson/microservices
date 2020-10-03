@@ -34,5 +34,12 @@
                 <include>**/*.yml</include>
             </includes>
         </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/main/resources</directory>
+            <outputDirectory>certs</outputDirectory>
+            <includes>
+                <include>**/*.p12</include>
+            </includes>
+        </fileSet>
     </fileSets>
 </assembly>
