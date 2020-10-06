@@ -16,8 +16,7 @@ spring:
             provider: keycloak
             client-id: api-gateway
             client-secret: bd8ea22a-4629-4d1a-8da9-789cb4948416
-            authorization-grant-type: authorization_code
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            authorization-grant-type: client_credentials
   cloud:
     gateway:
       discovery:

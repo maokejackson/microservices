@@ -2,8 +2,6 @@ package com.dtxmaker.microservice.gateway.movie;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,13 +24,12 @@ public class MovieController
 
     @ApiOperation(value = "Get all movies", response = Movie.class)
     @GetMapping
-    public Flux<Movie> getMovies(@AuthenticationPrincipal Jwt jwt)
+    public Flux<Movie> getMovies()
     {
         return webClient.get()
                 .uri("lb://movie-service/api/movies")
-                .headers(headers -> headers.setBearerAuth(jwt.getTokenValue()))
                 .retrieve().bodyToFlux(Movie.class)
-                .flatMap(movie -> getReviews(movie.getId(), jwt)
+                .flatMap(movie -> getReviews(movie.getId())
                         .map(review -> {
                             movie.addReview(review);
                             return movie;
@@ -43,23 +40,21 @@ public class MovieController
 
     @ApiOperation(value = "Get a movie", response = Movie.class)
     @GetMapping("/{movieId}")
-    public Mono<Movie> getMovie(@PathVariable("movieId") Long movieId, @AuthenticationPrincipal Jwt jwt)
+    public Mono<Movie> getMovie(@PathVariable("movieId") Long movieId)
     {
         Mono<Movie> movie = webClient.get()
                 .uri("lb://movie-service/api/movies/{movieId}", movieId)
-                .headers(headers -> headers.setBearerAuth(jwt.getTokenValue()))
                 .retrieve().bodyToMono(Movie.class);
 
-        Flux<MovieReview> reviews = getReviews(movieId, jwt);
+        Flux<MovieReview> reviews = getReviews(movieId);
 
         return Mono.zip(movie, reviews.collectList(), Movie::new);
     }
 
-    private Flux<MovieReview> getReviews(Long movieId, Jwt jwt)
+    private Flux<MovieReview> getReviews(Long movieId)
     {
         return webClient.get()
                 .uri("lb://review-service/api/reviews?movieId={movieId}", movieId)
-                .headers(headers -> headers.setBearerAuth(jwt.getTokenValue()))
                 .retrieve().bodyToFlux(MovieReview.class);
     }
 }
