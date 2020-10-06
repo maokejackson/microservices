@@ -5,6 +5,7 @@ import com.dtxmaker.microservice.common.swagger.SwaggerConfigurator;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
 public abstract class ResourceServerWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter
 {
@@ -26,7 +27,15 @@ public abstract class ResourceServerWebSecurityConfigurerAdapter extends WebSecu
                 .and()
             .oauth2ResourceServer()
                 .jwt()
+                    .jwtAuthenticationConverter(jwtAuthenticationConverter())
         ;
         // @formatter:on
+    }
+
+    private JwtAuthenticationConverter jwtAuthenticationConverter()
+    {
+        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+        converter.setJwtGrantedAuthoritiesConverter(new JwtRoleConverter());
+        return converter;
     }
 }
