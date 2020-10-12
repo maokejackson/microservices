@@ -87,7 +87,9 @@ public abstract class SwaggerConfigurator
 
     private SecurityScheme jwtScheme()
     {
-        return new ApiKey("Authorization", "bearer_token", "header");
+        return HttpAuthenticationScheme.JWT_BEARER_BUILDER
+                .name("JWT")
+                .build();
     }
 
     private SecurityContext jwtContext()
@@ -103,6 +105,6 @@ public abstract class SwaggerConfigurator
     {
         AuthorizationScope scope = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] scopes = { scope };
-        return new SecurityReference("Authorization", scopes);
+        return new SecurityReference("JWT", scopes);
     }
 }
