@@ -15,10 +15,12 @@ import java.util.List;
 
 public abstract class SwaggerConfigurator
 {
+    public static final String API_URL = "/v3/api-docs";
+
     public static final String[] RESOURCES = {
             // -- swagger ui
             "/api",
-            "/v3/api-docs",
+            API_URL,
             "/swagger-resources",
             "/swagger-resources/**",
             "/configuration/ui",
@@ -85,7 +87,7 @@ public abstract class SwaggerConfigurator
 
     private SecurityScheme jwtScheme()
     {
-        return new ApiKey("JWT", "Authorization", "header");
+        return new ApiKey("Authorization", "bearer_token", "header");
     }
 
     private SecurityContext jwtContext()
@@ -101,6 +103,6 @@ public abstract class SwaggerConfigurator
     {
         AuthorizationScope scope = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] scopes = { scope };
-        return new SecurityReference("JWT", scopes);
+        return new SecurityReference("Authorization", scopes);
     }
 }
