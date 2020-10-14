@@ -40,6 +40,8 @@ spring:
 
 eureka:
   instance:
+    hostname: localhost
+    prefer-ip-address: false
     non-secure-port-enabled: false
     secure-port-enabled: true
     status-page-url: https://${eureka.hostname}:${server.port}/actuator/info
