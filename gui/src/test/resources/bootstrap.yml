@@ -1,5 +1,14 @@
 server:
-  port: 8080
+  port: 8443
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: secret
+    key-store-type: pkcs12
+    key-alias: dtxmaker
+    key-password: secret
+    trust-store: classpath:truststore.p12
+    trust-store-password: secret
+    trust-store-type: pkcs12
 
 eureka:
   client:
