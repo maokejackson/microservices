@@ -1,30 +1,25 @@
 package com.dtxmaker.microservice.gui.movie;
 
-import com.dtxmaker.microservice.gui.config.RestTemplateHelper;
+import com.dtxmaker.microservice.gui.config.DefaultRestTemplate;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class MovieService
 {
-    private final RestTemplateHelper restTemplateHelper;
-
-    @Autowired
-    public MovieService(RestTemplateHelper restTemplateHelper)
-    {
-        this.restTemplateHelper = restTemplateHelper;
-    }
+    private final DefaultRestTemplate restTemplate;
 
     public Movie[] getMovies()
     {
         String url = "/api/movies";
-        return restTemplateHelper.get(url, Movie[].class);
+        return restTemplate.get(url, Movie[].class);
     }
 
     public Movie getMovie(Long movieId)
     {
         String url = "/api/movies/{movieId}";
-        return restTemplateHelper.get(url, Movie.class, movieId);
+        return restTemplate.get(url, Movie.class, movieId);
     }
 }
