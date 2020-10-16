@@ -38,6 +38,10 @@
         <spring-boot-admin.version>2.3.0</spring-boot-admin.version>
         <dependency-check-maven.version>6.0.2</dependency-check-maven.version>
         <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
+
+        <!-- SonarCloud -->
+        <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
     <dependencies>
