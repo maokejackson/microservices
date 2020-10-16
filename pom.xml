@@ -44,6 +44,27 @@
         </sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
+    <scm>
+        <connection>scm:git:https://github.com/maokejackson/microservices.git</connection>
+        <developerConnection>scm:git:https://github.com/maokejackson/microservices.git</developerConnection>
+        <url>https://github.com/maokejackson/microservices</url>
+    </scm>
+
+    <issueManagement>
+        <url>https://github.com/maokejackson/microservices/issues</url>
+    </issueManagement>
+
+    <developers>
+        <developer>
+            <name>Maoke Jackson</name>
+            <email>maokejackson@gmail.com</email>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
