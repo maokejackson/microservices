@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .defaultSuccessUrl("/", true)
                 .and()
             .csrf()
-                .disable()
+                .ignoringAntMatchers("/eureka/**")
         ;
         // @formatter:on
     }
