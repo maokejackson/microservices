@@ -1,5 +1,6 @@
 logs/
 .idea/vcs.xml
+.idea/sonarlint*.xml
 
 # Keycloak binary
 keycloak/keycloak-*.zip
