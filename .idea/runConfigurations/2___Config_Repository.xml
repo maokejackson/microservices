@@ -2,6 +2,7 @@
   <configuration default="false" name="2 - Config Repository" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.dtxmaker.microservice.configuration.ConfigurationRepositoryApplication" />
     <module name="microservice-configuration" />
+    <option name="VM_PARAMETERS" value="--add-opens java.base/java.lang=ALL-UNNAMED" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.dtxmaker.microservice.configuration.*" />

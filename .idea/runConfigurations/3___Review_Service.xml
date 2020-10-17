@@ -2,6 +2,7 @@
   <configuration default="false" name="3 - Review Service" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.dtxmaker.microservice.resource.review.ReviewServiceApplication" />
     <module name="microservice-resource-review" />
+    <option name="VM_PARAMETERS" value="--add-opens java.base/java.lang=ALL-UNNAMED" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.dtxmaker.microservice.resource.review.*" />

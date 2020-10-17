@@ -2,6 +2,7 @@
   <configuration default="false" name="9 - Spring Boot Admin" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.dtxmaker.microservice.admin.SpringBootAdminApplication" />
     <module name="microservice-spring-boot-admin" />
+    <option name="VM_PARAMETERS" value="--add-opens java.base/java.lang=ALL-UNNAMED" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.dtxmaker.microservice.admin.*" />
