@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=maokejackson_microservices&metric=alert_status)](https://sonarcloud.io/dashboard?id=maokejackson_microservices)
+
 ## About
 
 This is a simple microservice PoC project using Spring Cloud as technology stack.
