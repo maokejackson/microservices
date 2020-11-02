@@ -44,6 +44,7 @@
         <!-- SonarCloud -->
         <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.sources>src/main/java,src/main/resources/templates</sonar.sources>
     </properties>
 
     <scm>
