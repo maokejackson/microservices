@@ -18,6 +18,9 @@
         <jquery.version>3.4.1</jquery.version>
         <font-awesome.version>5.4.1</font-awesome.version>
         <popper.version>1.14.7</popper.version>
+
+        <!-- SonarCloud -->
+        <sonar.sources>src/main/java,src/main/resources/templates</sonar.sources>
     </properties>
 
     <dependencies>
