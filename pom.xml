@@ -35,9 +35,7 @@
         <caffeine.version>2.8.5</caffeine.version>
         <swagger.version>3.0.0</swagger.version>
         <winsw.version>2.9.0</winsw.version>
-        <!-- upgrade xstream version to fix warning on startup https://github.com/x-stream/xstream/issues/101 -->
-        <xstream.version>1.4.13</xstream.version>
-        <spring-boot-admin.version>2.3.0</spring-boot-admin.version>
+        <spring-boot-admin.version>2.3.1</spring-boot-admin.version>
         <dependency-check-maven.version>6.0.2</dependency-check-maven.version>
         <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
 
@@ -128,11 +126,6 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-boot-starter</artifactId>
                 <version>${swagger.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.thoughtworks.xstream</groupId>
-                <artifactId>xstream</artifactId>
-                <version>${xstream.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
