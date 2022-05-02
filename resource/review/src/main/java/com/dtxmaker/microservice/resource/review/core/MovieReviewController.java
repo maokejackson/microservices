@@ -14,15 +14,16 @@ public class MovieReviewController
     @Autowired
     private MovieReviewRepository repository;
 
-    @GetMapping(params = "!movieId")
-    public Flux<MovieReview> getAllReviews()
-    {
-        return repository.findAll();
-    }
-
     @GetMapping
-    public Flux<MovieReview> getReviews(@RequestParam("movieId") Long movieId)
+    public Flux<MovieReview> getReviews(@RequestParam(name = "movieId", required = false) Long movieId)
     {
-        return repository.findAllByMovieId(movieId);
+        if (movieId == null)
+        {
+            return repository.findAll();
+        }
+        else
+        {
+            return repository.findAllByMovieId(movieId);
+        }
     }
 }
