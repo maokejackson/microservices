@@ -819,31 +819,6 @@
             ]
           }
         ],
-        "policies": [
-          {
-            "id": "410cd3de-3c63-4a26-a33e-af8b22097237",
-            "name": "Default Policy",
-            "description": "A policy that grants access only for users within this realm",
-            "type": "js",
-            "logic": "POSITIVE",
-            "decisionStrategy": "AFFIRMATIVE",
-            "config": {
-              "code": "// by default, grants any permission associated with this policy\n$evaluation.grant();\n"
-            }
-          },
-          {
-            "id": "bbe01cfa-03fd-461d-94d4-9925bf6fc44d",
-            "name": "Default Permission",
-            "description": "A permission that applies to the default resource type",
-            "type": "resource",
-            "logic": "POSITIVE",
-            "decisionStrategy": "UNANIMOUS",
-            "config": {
-              "defaultResourceType": "urn:api-gateway:resources:default",
-              "applyPolicies": "[\"Default Policy\"]"
-            }
-          }
-        ],
         "scopes": [],
         "decisionStrategy": "UNANIMOUS"
       }
@@ -1004,50 +979,7 @@
         "phone",
         "offline_access",
         "microprofile-jwt"
-      ],
-      "authorizationSettings": {
-        "allowRemoteResourceManagement": true,
-        "policyEnforcementMode": "ENFORCING",
-        "resources": [
-          {
-            "name": "Default Resource",
-            "type": "urn:api-gateway:resources:default",
-            "ownerManagedAccess": false,
-            "attributes": {},
-            "_id": "1c67147c-eeea-4d05-8e78-523d7c767ef7",
-            "uris": [
-              "/*"
-            ]
-          }
-        ],
-        "policies": [
-          {
-            "id": "5c48fd3e-e8e1-4e92-be8a-91698fe44ce7",
-            "name": "Default Policy",
-            "description": "A policy that grants access only for users within this realm",
-            "type": "js",
-            "logic": "POSITIVE",
-            "decisionStrategy": "AFFIRMATIVE",
-            "config": {
-              "code": "// by default, grants any permission associated with this policy\n$evaluation.grant();\n"
-            }
-          },
-          {
-            "id": "4715884e-d72e-4338-85b3-9435176bb045",
-            "name": "Default Permission",
-            "description": "A permission that applies to the default resource type",
-            "type": "resource",
-            "logic": "POSITIVE",
-            "decisionStrategy": "UNANIMOUS",
-            "config": {
-              "defaultResourceType": "urn:api-gateway:resources:default",
-              "applyPolicies": "[\"Default Policy\"]"
-            }
-          }
-        ],
-        "scopes": [],
-        "decisionStrategy": "UNANIMOUS"
-      }
+      ]
     },
     {
       "id": "06c7f9cd-a368-4593-8187-c2fbc76fd3ae",

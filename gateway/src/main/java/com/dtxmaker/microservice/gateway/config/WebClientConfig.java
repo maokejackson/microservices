@@ -13,14 +13,6 @@ public class WebClientConfig
     @LoadBalanced
     public WebClient.Builder loadBalancedWebClientBuilder()
     {
-        return WebClient.builder();
-    }
-
-    @Bean
-    public WebClient webClient()
-    {
-        return loadBalancedWebClientBuilder()
-                .filter(new ServerBearerExchangeFilterFunction())
-                .build();
+        return WebClient.builder().filter(new ServerBearerExchangeFilterFunction());
     }
 }

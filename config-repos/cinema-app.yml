@@ -1,12 +1,10 @@
 server:
   port: 8443
   ssl:
-    client-auth: need
     key-store: classpath:keystore.p12
     key-store-password: secret
     key-store-type: pkcs12
     key-alias: dtxmaker
-    key-password: secret
     trust-store: classpath:truststore.p12
     trust-store-password: secret
     trust-store-type: pkcs12
@@ -29,6 +27,8 @@ spring:
 
 eureka:
   instance:
+    hostname: localhost
+    prefer-ip-address: false
     non-secure-port-enabled: false
     secure-port-enabled: true
     status-page-url: https://${eureka.hostname}:${server.port}/actuator/info

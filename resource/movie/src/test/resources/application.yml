@@ -1,5 +1,9 @@
 server:
-  port: 8083
+  port: 8082
+
+feign:
+  hystrix:
+    enabled: false
 
 eureka:
   client:
@@ -7,12 +11,14 @@ eureka:
 
 spring:
   application:
-    name: review-service
+    name: movie-service
+  config:
+    import:
   cloud:
     config:
       enabled: false
   datasource:
-    url: jdbc:h2:mem:reviews
+    url: jdbc:h2:mem:movies
     driver-class-name: org.h2.Driver
     username: sa
   jpa:
@@ -21,10 +27,10 @@ spring:
     oauth2:
       client:
         registration:
-          review-service:
+          movie-service:
             provider: keycloak
-            client-id: review-service
-            client-secret: abb0f2a1-a32a-4c59-8ecb-46784a83e7f2
+            client-id: movie-service
+            client-secret: eb254855-2ac2-4799-87e0-6170594b4a61
             authorization-grant-type: client_credentials
         provider:
           keycloak:

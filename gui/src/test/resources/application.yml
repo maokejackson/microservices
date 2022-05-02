@@ -1,9 +1,14 @@
 server:
-  port: 8082
-
-feign:
-  hystrix:
-    enabled: false
+  port: 8443
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: secret
+    key-store-type: pkcs12
+    key-alias: dtxmaker
+    key-password: secret
+    trust-store: classpath:truststore.p12
+    trust-store-password: secret
+    trust-store-type: pkcs12
 
 eureka:
   client:
@@ -11,25 +16,22 @@ eureka:
 
 spring:
   application:
-    name: movie-service
+    name: cinema-app
+  config:
+    import:
   cloud:
     config:
       enabled: false
-  datasource:
-    url: jdbc:h2:mem:movies
-    driver-class-name: org.h2.Driver
-    username: sa
-  jpa:
-    open-in-view: false
   security:
     oauth2:
       client:
         registration:
-          movie-service:
+          cinema-app:
             provider: keycloak
-            client-id: movie-service
-            client-secret: eb254855-2ac2-4799-87e0-6170594b4a61
-            authorization-grant-type: client_credentials
+            client-id: cinema-app
+            client-secret: 75634444-167a-47d8-8f43-1c44f74cc43e
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/{registrationId}
         provider:
           keycloak:
             authorization-uri: http://localhost:8180/auth/realms/microservices/protocol/openid-connect/auth

@@ -17,10 +17,10 @@
             <li th:class="${tab == 'home'} ? 'nav-item active' : 'nav-item'">
                 <a class="nav-link" href="/">Home <span th:if="${tab == 'home'}" class="sr-only">(current)</span></a>
             </li>
-            <li th:class="${tab == 'movies'} ? 'nav-item active' : 'nav-item'" sec:authorize="hasRole('ROLE_user')">
+            <li th:class="${tab == 'movies'} ? 'nav-item active' : 'nav-item'" sec:authorize="hasRole('ROLE_USER')">
                 <a class="nav-link" href="/movies">Browse Movies <span th:if="${tab == 'home'}" class="sr-only">(current)</span></a>
             </li>
-            <li th:class="${tab == 'manage'} ? 'nav-item active' : 'nav-item'" sec:authorize="hasRole('ROLE_admin')">
+            <li th:class="${tab == 'manage'} ? 'nav-item active' : 'nav-item'" sec:authorize="hasRole('ROLE_ADMIN')">
                 <a class="nav-link" href="/manage">Manage Cinema <span th:if="${tab == 'home'}" class="sr-only">(current)</span></a>
             </li>
         </ul>

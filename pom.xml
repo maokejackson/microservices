@@ -12,14 +12,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.7.RELEASE</version>
+        <version>2.6.7</version>
         <relativePath/>
     </parent>
 
     <modules>
         <module>common/assembly</module>
-        <module>common/swagger</module>
-        <module>common/resource-server</module>
         <module>discovery</module>
         <module>configuration</module>
         <module>gateway</module>
@@ -31,13 +29,11 @@
 
     <properties>
         <java.version>11</java.version>
-        <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
-        <caffeine.version>2.8.5</caffeine.version>
-        <springfox.version>3.0.0</springfox.version>
+        <spring-cloud.version>2021.0.2</spring-cloud.version>
         <winsw.version>2.9.0</winsw.version>
-        <spring-boot-admin.version>2.3.1</spring-boot-admin.version>
-        <dependency-check-maven.version>6.0.2</dependency-check-maven.version>
-        <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
+        <spring-boot-admin.version>2.6.6</spring-boot-admin.version>
+        <dependency-check-maven.version>7.1.0</dependency-check-maven.version>
+        <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
 
         <!-- SonarCloud -->
         <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml
@@ -93,16 +89,6 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.dtxmaker.microservice</groupId>
-                <artifactId>microservice-common-swagger</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dtxmaker.microservice</groupId>
-                <artifactId>microservice-common-resource-server</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
@@ -115,17 +101,6 @@
                 <version>${spring-boot-admin.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.github.ben-manes.caffeine</groupId>
-                <artifactId>caffeine</artifactId>
-                <version>${caffeine.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>${springfox.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

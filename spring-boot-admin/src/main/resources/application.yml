@@ -1,6 +1,8 @@
 spring:
   application:
-    name: cinema-app
+    name: spring-boot-admin-server
+  config:
+    import: configserver:config-repository
   cloud:
     config:
       username: @app.config-repository.username@
@@ -9,7 +11,6 @@ spring:
         enabled: true
         service-id: config-repository
       name: ${spring.application.name}
-      fail-fast: true
 
 eureka:
   client:

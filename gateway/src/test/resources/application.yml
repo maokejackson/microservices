@@ -1,14 +1,5 @@
 server:
-  port: 8443
-  ssl:
-    key-store: classpath:keystore.p12
-    key-store-password: secret
-    key-store-type: pkcs12
-    key-alias: dtxmaker
-    key-password: secret
-    trust-store: classpath:truststore.p12
-    trust-store-password: secret
-    trust-store-type: pkcs12
+  port: 8084
 
 eureka:
   client:
@@ -16,20 +7,44 @@ eureka:
 
 spring:
   application:
-    name: cinema-app
+    name: api-gateway
+  config:
+    import:
   cloud:
     config:
       enabled: false
+    loadbalancer:
+      ribbon:
+        enabled: false
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: movie-service
+          uri: lb://movie-service
+          predicates:
+            - Path=/movie-service/**
+          filters:
+            - StripPrefix=1
+            - TokenRelay=
+        - id: review-service
+          uri: lb://review-service
+          predicates:
+            - Path=/review-service/**
+          filters:
+            - StripPrefix=1
+            - TokenRelay=
   security:
     oauth2:
       client:
         registration:
-          cinema-app:
+          api-gateway:
             provider: keycloak
-            client-id: cinema-app
-            client-secret: 75634444-167a-47d8-8f43-1c44f74cc43e
+            client-id: api-gateway
+            client-secret: bd8ea22a-4629-4d1a-8da9-789cb4948416
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/{registrationId}
+            redirect-uri: http://localhost:8084/login/oauth2/code/{registrationId}
         provider:
           keycloak:
             authorization-uri: http://localhost:8180/auth/realms/microservices/protocol/openid-connect/auth

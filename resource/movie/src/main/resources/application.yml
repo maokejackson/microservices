@@ -1,6 +1,8 @@
 spring:
   application:
     name: movie-service
+  config:
+    import: configserver:config-repository
   cloud:
     config:
       username: @app.config-repository.username@
@@ -9,13 +11,8 @@ spring:
         enabled: true
         service-id: config-repository
       name: ${spring.application.name}
-      fail-fast: true
 
 eureka:
   client:
     service-url:
       defaultZone: @app.discovery-service.url@
-
-swagger:
-  title: Movie API Docs
-  version: @project.version@

@@ -1,5 +1,5 @@
 server:
-  port: 8084
+  port: 8083
 
 eureka:
   client:
@@ -7,42 +7,27 @@ eureka:
 
 spring:
   application:
-    name: api-gateway
+    name: review-service
+  config:
+    import:
   cloud:
     config:
       enabled: false
-    loadbalancer:
-      ribbon:
-        enabled: false
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-      routes:
-        - id: movie-service
-          uri: lb://movie-service
-          predicates:
-            - Path=/movie-service/**
-          filters:
-            - StripPrefix=1
-            - TokenRelay=
-        - id: review-service
-          uri: lb://review-service
-          predicates:
-            - Path=/review-service/**
-          filters:
-            - StripPrefix=1
-            - TokenRelay=
+  datasource:
+    url: jdbc:h2:mem:reviews
+    driver-class-name: org.h2.Driver
+    username: sa
+  jpa:
+    open-in-view: false
   security:
     oauth2:
       client:
         registration:
-          api-gateway:
+          review-service:
             provider: keycloak
-            client-id: api-gateway
-            client-secret: bd8ea22a-4629-4d1a-8da9-789cb4948416
-            authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8084/login/oauth2/code/{registrationId}
+            client-id: review-service
+            client-secret: abb0f2a1-a32a-4c59-8ecb-46784a83e7f2
+            authorization-grant-type: client_credentials
         provider:
           keycloak:
             authorization-uri: http://localhost:8180/auth/realms/microservices/protocol/openid-connect/auth

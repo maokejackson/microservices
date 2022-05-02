@@ -34,10 +34,4 @@ public class BasicErrorController implements ErrorController
 
         return "error/error";
     }
-
-    @Override
-    public String getErrorPath()
-    {
-        return null;
-    }
 }

@@ -1,7 +1,6 @@
 package com.dtxmaker.microservice.gateway.movie;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,23 +9,17 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Api(tags = "Movie")
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/movies")
 public class MovieController
 {
-    private final WebClient webClient;
+    private final WebClient.Builder webClient;
 
-    public MovieController(WebClient webClient)
-    {
-        this.webClient = webClient;
-    }
-
-    @ApiOperation(value = "Get all movies", response = Movie.class)
     @GetMapping
     public Flux<Movie> getMovies()
     {
-        return webClient.get()
+        return webClient.build().get()
                 .uri("lb://movie-service/api/movies")
                 .retrieve().bodyToFlux(Movie.class)
                 .flatMap(movie -> getReviews(movie.getId())
@@ -38,11 +31,10 @@ public class MovieController
                 );
     }
 
-    @ApiOperation(value = "Get a movie", response = Movie.class)
     @GetMapping("/{movieId}")
     public Mono<Movie> getMovie(@PathVariable("movieId") Long movieId)
     {
-        Mono<Movie> movie = webClient.get()
+        Mono<Movie> movie = webClient.build().get()
                 .uri("lb://movie-service/api/movies/{movieId}", movieId)
                 .retrieve().bodyToMono(Movie.class);
 
@@ -53,7 +45,7 @@ public class MovieController
 
     private Flux<MovieReview> getReviews(Long movieId)
     {
-        return webClient.get()
+        return webClient.build().get()
                 .uri("lb://review-service/api/reviews?movieId={movieId}", movieId)
                 .retrieve().bodyToFlux(MovieReview.class);
     }

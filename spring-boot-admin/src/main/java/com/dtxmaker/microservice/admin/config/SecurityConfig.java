@@ -1,57 +1,48 @@
 package com.dtxmaker.microservice.admin.config;
 
+import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.security.config.Customizer.withDefaults;
+import static org.springframework.security.web.csrf.CookieCsrfTokenRepository.withHttpOnlyFalse;
+
 import de.codecentric.boot.admin.server.config.AdminServerProperties;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import java.util.UUID;
-
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter
+public class SecurityConfig
 {
     private final AdminServerProperties adminServer;
 
-    public SecurityConfig(AdminServerProperties adminServer)
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
-        this.adminServer = adminServer;
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception
-    {
-        // @formatter:off
-        http
-            .authorizeRequests()
-                .antMatchers(adminServer.path("/assets/**")).permitAll()
-                .antMatchers(adminServer.path("/login")).permitAll()
-                .anyRequest().authenticated()
-                .and()
-            .formLogin()
-                .loginPage(adminServer.path("/login"))
-                .defaultSuccessUrl(adminServer.path("/"), true)
-                .and()
-            .logout()
-                .logoutUrl(adminServer.path("/logout"))
-                .and()
-            .httpBasic()
-                .and()
-            .csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .ignoringRequestMatchers(
-                        new AntPathRequestMatcher(adminServer.path("/instances"), HttpMethod.POST.toString()),
-                        new AntPathRequestMatcher(adminServer.path("/instances/*"), HttpMethod.DELETE.toString()),
-                        new AntPathRequestMatcher(adminServer.path("/actuator/**")))
-                .and()
-            .rememberMe()
-                .key(UUID.randomUUID().toString())
-                .tokenValiditySeconds(1209600)  // 14 days
-        ;
-        // @formatter:on
+        return http
+                .authorizeRequests(customizer -> customizer
+                        .antMatchers(adminServer.path("/assets/**")).permitAll()
+                        .antMatchers(adminServer.path("/login")).permitAll()
+                        .anyRequest().authenticated()
+                )
+                .formLogin(customizer -> customizer
+                        .loginPage(adminServer.path("/login"))
+                        .defaultSuccessUrl(adminServer.path("/"), true)
+                )
+                .logout(customizer -> customizer.logoutUrl(adminServer.path("/logout")))
+                .httpBasic(withDefaults())
+                .csrf(customizer -> customizer
+                        .csrfTokenRepository(withHttpOnlyFalse())
+                        .ignoringRequestMatchers(
+                                new AntPathRequestMatcher(adminServer.path("/instances"), POST.toString()),
+                                new AntPathRequestMatcher(adminServer.path("/instances/*"), DELETE.toString()),
+                                new AntPathRequestMatcher(adminServer.path("/actuator/**")))
+                )
+                .build();
     }
 }

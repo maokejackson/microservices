@@ -25,7 +25,7 @@ public class HomeController
         return "index";
     }
 
-    @PreAuthorize("hasRole('ROLE_user')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/movies")
     public String movies(Model model, Principal principal)
     {
@@ -34,7 +34,7 @@ public class HomeController
         return "movies";
     }
 
-    @PreAuthorize("hasRole('ROLE_admin')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/manage")
     public String manage(Model model, Principal principal)
     {

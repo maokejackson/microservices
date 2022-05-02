@@ -1,9 +1,9 @@
-Invoke-WebRequest -Uri https://downloads.jboss.org/keycloak/11.0.0/keycloak-11.0.0.zip -OutFile keycloak-11.0.0.zip
-Expand-Archive -Path keycloak-11.0.0.zip
+$Version = "18.0.0"
 
-Set-Location keycloak-11.0.0\bin
-cmd.exe /c "add-user-keycloak.bat -r master -u admin -p admin"
-cmd.exe /c "add-user-keycloak.bat -r microservices -u admin -p admin"
-cmd.exe /c "add-user-keycloak.bat -r microservices -u user -p user"
-cmd.exe /c "standalone.bat -Djboss.socket.binding.port-offset=100 -Dkeycloak.profile.feature.upload_scripts=enabled"
-#cmd.exe /c "standalone.bat -Djboss.socket.binding.port-offset=100 -Dkeycloak.profile.feature.upload_scripts=enabled -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=microservices-realm.json -Dkeycloak.migration.strategy=OVERWRITE_EXISTING"
+Invoke-WebRequest -Uri https://github.com/keycloak/keycloak/releases/download/$Version/keycloak-$Version.zip -OutFile keycloak-$Version.zip
+Expand-Archive -Path keycloak-$Version.zip -DestinationPath .
+
+#Set-Location keycloak-$Version\bin
+#cmd.exe /c "add-user-keycloak.bat -r master -u admin -p admin"
+#cmd.exe /c "add-user-keycloak.bat -r microservices -u admin -p admin"
+#cmd.exe /c "add-user-keycloak.bat -r microservices -u user -p user"

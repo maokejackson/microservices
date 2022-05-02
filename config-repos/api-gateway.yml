@@ -5,7 +5,6 @@ server:
     key-store-password: secret
     key-store-type: pkcs12
     key-alias: dtxmaker
-    key-password: secret
 
 spring:
   security:
