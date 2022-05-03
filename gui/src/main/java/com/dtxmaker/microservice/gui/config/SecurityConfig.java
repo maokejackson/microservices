@@ -26,6 +26,7 @@ public class SecurityConfig
         return http.authorizeRequests(customizer -> customizer
                         .requestMatchers(toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers(toAnyEndpoint()).permitAll()
+                        .mvcMatchers("/").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(withDefaults())
