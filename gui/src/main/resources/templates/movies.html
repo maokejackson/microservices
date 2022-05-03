@@ -33,10 +33,12 @@
                 <img th:src="@{${movie.poster}}" th:alt="${movie.title}" th:title="${movie.title}" />
             </td>
             <td>
-                <blockquote th:each="review : ${movie.reviews}" class="blockquote">
-                    <p th:text="${review.review}" class="mb-2"></p>
-                    <footer th:text="${review.authorName}" class="blockquote-footer"></footer>
-                </blockquote>
+                <figure th:each="review : ${movie.reviews}">
+                    <blockquote class="blockquote">
+                        <p th:text="${review.review}"></p>
+                    </blockquote>
+                    <figcaption th:text="${review.authorName}" class="blockquote-footer"></figcaption>
+                </figure>
             </td>
         </tr>
         </tbody>
