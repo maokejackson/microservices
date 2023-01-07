@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.7</version>
+        <version>2.7.7</version>
         <relativePath/>
     </parent>
 
@@ -29,11 +29,11 @@
 
     <properties>
         <java.version>11</java.version>
-        <spring-cloud.version>2021.0.2</spring-cloud.version>
+        <spring-cloud.version>2021.0.5</spring-cloud.version>
         <winsw.version>2.9.0</winsw.version>
-        <spring-boot-admin.version>2.6.6</spring-boot-admin.version>
-        <dependency-check-maven.version>7.1.0</dependency-check-maven.version>
-        <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+        <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
+        <dependency-check-maven.version>7.4.3</dependency-check-maven.version>
+        <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
 
         <!-- SonarCloud -->
         <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml
