@@ -8,10 +8,6 @@ spring:
     user:
       name: @app.discovery-service.username@
       password: @app.discovery-service.password@
-  cloud:
-    loadbalancer:
-      ribbon:
-        enabled: false
   boot:
     admin:
       client:

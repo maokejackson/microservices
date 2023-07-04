@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.7</version>
+        <version>3.1.1</version>
         <relativePath/>
     </parent>
 
@@ -28,12 +28,13 @@
     </modules>
 
     <properties>
-        <java.version>11</java.version>
-        <spring-cloud.version>2021.0.2</spring-cloud.version>
+        <spring-cloud.version>2022.0.2</spring-cloud.version>
+        <spring-boot-admin.version>3.1.0</spring-boot-admin.version>
+
+        <dependency-check-maven.version>8.3.1</dependency-check-maven.version>
+        <jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
+
         <winsw.version>2.9.0</winsw.version>
-        <spring-boot-admin.version>2.6.6</spring-boot-admin.version>
-        <dependency-check-maven.version>7.1.0</dependency-check-maven.version>
-        <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
 
         <!-- SonarCloud -->
         <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml
@@ -66,6 +67,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-properties-migrator</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>

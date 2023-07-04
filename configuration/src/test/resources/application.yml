@@ -13,6 +13,3 @@ spring:
       server:
         git:
           uri: file:///@basedir@/../config-repos
-    loadbalancer:
-      ribbon:
-        enabled: false

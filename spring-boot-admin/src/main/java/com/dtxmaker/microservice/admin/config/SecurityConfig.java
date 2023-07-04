@@ -25,9 +25,9 @@ public class SecurityConfig
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
         return http
-                .authorizeRequests(customizer -> customizer
-                        .antMatchers(adminServer.path("/assets/**")).permitAll()
-                        .antMatchers(adminServer.path("/login")).permitAll()
+                .authorizeHttpRequests(customizer -> customizer
+                        .requestMatchers(adminServer.path("/assets/**")).permitAll()
+                        .requestMatchers(adminServer.path("/login")).permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(customizer -> customizer

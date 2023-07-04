@@ -7,7 +7,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
@@ -15,18 +15,18 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @RequiredArgsConstructor
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity
 public class SecurityConfig
 {
     private final ClientRegistrationRepository clientRegistrationRepository;
 
     @Bean
-    SecurityFilterChain configure(HttpSecurity http) throws Exception
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
-        return http.authorizeRequests(customizer -> customizer
+        return http.authorizeHttpRequests(customizer -> customizer
                         .requestMatchers(toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers(toAnyEndpoint()).permitAll()
-                        .mvcMatchers("/").permitAll()
+                        .requestMatchers("/").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(withDefaults())

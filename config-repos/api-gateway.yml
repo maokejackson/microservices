@@ -14,7 +14,7 @@ spring:
           api-gateway:
             provider: keycloak
             client-id: api-gateway
-            client-secret: bd8ea22a-4629-4d1a-8da9-789cb4948416
+            client-secret: JWBHQNlEDcGiJMds3mUadpC65LdbTbqA
             authorization-grant-type: client_credentials
   cloud:
     gateway:

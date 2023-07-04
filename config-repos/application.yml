@@ -14,10 +14,6 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/microservices
-  cloud:
-    loadbalancer:
-      ribbon:
-        enabled: false
   boot:
     admin:
       client:
