@@ -1,3 +1,3 @@
 @echo off
-pushd keycloak-11.0.2\bin
-standalone.bat -Djboss.socket.binding.port-offset=100 -Dkeycloak.profile.feature.upload_scripts=enabled
+pushd keycloak-21.1.2\bin
+kc.bat start-dev

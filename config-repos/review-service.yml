@@ -12,5 +12,5 @@ spring:
           review-service:
             provider: keycloak
             client-id: review-service
-            client-secret: abb0f2a1-a32a-4c59-8ecb-46784a83e7f2
+            client-secret: P1cJ1f1Q22AWyOsoHt6kCjBJI30tFBDu
             authorization-grant-type: client_credentials

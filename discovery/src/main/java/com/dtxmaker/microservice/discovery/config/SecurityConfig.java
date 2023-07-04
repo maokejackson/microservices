@@ -15,13 +15,13 @@ public class SecurityConfig
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
-        return http.authorizeRequests(customizer -> customizer
+        return http.authorizeHttpRequests(customizer -> customizer
                         .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(customizer -> customizer.defaultSuccessUrl("/", true))
-                .csrf(customizer -> customizer.ignoringAntMatchers("/eureka/**"))
+                .csrf(customizer -> customizer.ignoringRequestMatchers("/eureka/**"))
                 .build();
     }
 }

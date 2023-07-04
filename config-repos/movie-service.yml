@@ -12,5 +12,5 @@ spring:
           movie-service:
             provider: keycloak
             client-id: movie-service
-            client-secret: eb254855-2ac2-4799-87e0-6170594b4a61
+            client-secret: LPSl717dDPv0MZbhnnCnQp1VwfCFR4ii
             authorization-grant-type: client_credentials

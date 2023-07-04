@@ -13,9 +13,6 @@ spring:
   cloud:
     config:
       enabled: false
-    loadbalancer:
-      ribbon:
-        enabled: false
     gateway:
       discovery:
         locator:
