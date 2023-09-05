@@ -16,7 +16,7 @@
     <properties>
         <bootstrap.version>5.3.0</bootstrap.version>
         <jquery.version>3.6.4</jquery.version>
-        <font-awesome.version>6.4.0</font-awesome.version>
+        <font-awesome.version>6.4.2</font-awesome.version>
         <popper.version>2.9.3</popper.version>
 
         <!-- SonarCloud -->
