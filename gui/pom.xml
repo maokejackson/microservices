@@ -14,10 +14,10 @@
     <artifactId>microservice-gui</artifactId>
 
     <properties>
-        <bootstrap.version>5.3.0</bootstrap.version>
-        <jquery.version>3.6.4</jquery.version>
-        <font-awesome.version>6.4.0</font-awesome.version>
-        <popper.version>2.9.3</popper.version>
+        <bootstrap.version>5.3.2</bootstrap.version>
+        <jquery.version>3.7.1</jquery.version>
+        <font-awesome.version>6.5.1</font-awesome.version>
+        <popper.version>2.11.7</popper.version>
 
         <!-- SonarCloud -->
         <sonar.sources>src/main/java,src/main/resources/templates</sonar.sources>

@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.1</version>
+        <version>3.2.2</version>
         <relativePath/>
     </parent>
 
@@ -28,11 +28,11 @@
     </modules>
 
     <properties>
-        <spring-cloud.version>2022.0.2</spring-cloud.version>
-        <spring-boot-admin.version>3.1.0</spring-boot-admin.version>
+        <spring-cloud.version>2023.0.0</spring-cloud.version>
+        <spring-boot-admin.version>3.2.1</spring-boot-admin.version>
 
         <dependency-check-maven.version>8.3.1</dependency-check-maven.version>
-        <jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
 
         <winsw.version>2.9.0</winsw.version>
 
